@@ -39,6 +39,7 @@ function aumenta(idInputText){
 	n1 = parseInt(tx);
 	n2 = parseInt(1);
 
+	document.getElementById("h" + idInputText).value = n1 + n2;
 	document.getElementById("" + idInputText).value = n1 + n2;
 }
 
@@ -56,6 +57,7 @@ function resta(idInputText){
 		n2 = 0;
 	}
 
+	document.getElementById("h" + idInputText).value = n1 - n2;
 	document.getElementById("" + idInputText).value = n1 - n2;
 }
 

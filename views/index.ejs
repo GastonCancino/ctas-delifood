@@ -10,8 +10,8 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 
-	<form action="grabaPedidoAdm" method="post">
-	    <p><input type="text"></p>
+	<form name="f1" action="grabaPedidoAdm" method="post">
+	    <p><input type="text" name="txtFecActual2" id="txtFecActual"></p>
 	    <p>
 	    	<select name="lstTipoPedido" id="lstTipoPedido">
 	    		<option value="0">Seleccione</option>
@@ -31,50 +31,61 @@
 	    	<tr>
 	    		<td width="300">Arroz adobo de pollo con camote o papa</td>
 	    		<td><input type="button" name="ralm101" id="ralm101" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm101" size="3" disabled></td>
+	    		<td>
+	    			<input type="hidden" name="halm101" id="halm101">
+	    			<input type="text" name="alm101" id="alm101" size="3" disabled>
+	    		</td>
 	    		<td><input type="button" name="salm101" id="salm101" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm102" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm102" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm102" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm103" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm103" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm103" value="+"></td>
+
+	    		<td><input type="button" name="ralm102" id="ralm102" value="-"></td>
+	    		<td>
+	    			<input type="hidden" name="halm102" id="halm102" size="3">
+	    			<input type="text" name="alm102" id="alm102" size="3" disabled>
+	    		</td>
+	    		<td><input type="button" name="salm102" id="salm102" value="+"></td>
+
+	    		<td><input type="button" name="ralm103" id="ralm103" value="-"></td>
+	    		<td>
+	    			<input type="hidden" name="halm103" id="halm103" size="3">
+	    			<input type="text" name="alm103" id="alm103" size="3" disabled>
+	    		</td>
+	    		<td><input type="button" name="salm103" id="salm103" value="+"></td>
 	    	</tr>
 	    	<tr>
 	    		<td>Arroz + Hamburguesa + Vegetales</td>
-	    		<td><input type="button" name="ralm101" id="ralm104" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm104" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm104" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm105" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm105" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm105" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm106" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm106" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm106" value="+"></td>
+	    		<td><input type="button" name="ralm104" id="ralm104" value="-"></td>
+	    		<td><input type="text" name="alm104" id="alm104" size="3" disabled></td>
+	    		<td><input type="button" name="salm104" id="salm104" value="+"></td>
+	    		<td><input type="button" name="ralm105" id="ralm105" value="-"></td>
+	    		<td><input type="text" name="alm105" id="alm105" size="3" disabled></td>
+	    		<td><input type="button" name="salm105" id="salm105" value="+"></td>
+	    		<td><input type="button" name="ralm106" id="ralm106" value="-"></td>
+	    		<td><input type="text" name="alm106" id="alm106" size="3" disabled></td>
+	    		<td><input type="button" name="salm106" id="salm106" value="+"></td>
 	    	</tr>
 	    	<tr>
 	    		<td>Arroz con carne asada y ensalada rusa</td>
-	    		<td><input type="button" name="ralm101" id="ralm107" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm107" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm107" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm108" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm108" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm108" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm109" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm109" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm109" value="+"></td>
+	    		<td><input type="button" name="ralm107" id="ralm107" value="-"></td>
+	    		<td><input type="text" name="alm107" id="alm107" size="3" disabled></td>
+	    		<td><input type="button" name="salm107" id="salm107" value="+"></td>
+	    		<td><input type="button" name="ralm108" id="ralm108" value="-"></td>
+	    		<td><input type="text" name="alm108" id="alm108" size="3" disabled></td>
+	    		<td><input type="button" name="salm108" id="salm108" value="+"></td>
+	    		<td><input type="button" name="ralm109" id="ralm109" value="-"></td>
+	    		<td><input type="text" name="alm109" id="alm109" size="3" disabled></td>
+	    		<td><input type="button" name="salm109" id="salm109" value="+"></td>
 	    	</tr>
 	    	<tr>
 	    		<td>Pachamanca de cerdo</td>
-	    		<td><input type="button" name="ralm101" id="ralm1010" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1010" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1010" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm1011" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1011" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1011" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm1012" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1012" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1012" value="+"></td>
+	    		<td><input type="button" name="ralm1010" id="ralm1010" value="-"></td>
+	    		<td><input type="text" name="alm1010" id="alm1010" size="3" disabled></td>
+	    		<td><input type="button" name="salm1010" id="salm1010" value="+"></td>
+	    		<td><input type="button" name="ralm1011" id="ralm1011" value="-"></td>
+	    		<td><input type="text" name="alm1011" id="alm1011" size="3" disabled></td>
+	    		<td><input type="button" name="salm1011" id="salm1011" value="+"></td>
+	    		<td><input type="button" name="ralm1012" id="ralm1012" value="-"></td>
+	    		<td><input type="text" name="alm1012" id="alm1012" size="3" disabled></td>
+	    		<td><input type="button" name="salm1012" id="salm1012" value="+"></td>
 	    	</tr>
 	    </table>
 
@@ -82,75 +93,8 @@
 	    <hr>
 
 
-	    <table>
-	    	<tr>
-	    		<td width="300">Lomo Saltado</td>
-	    		<td><input type="button" name="ralm101" id="ralm113" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm113" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm113" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm114" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm114" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm114" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm115" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm115" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm115" value="+"></td>
-	    	</tr>
-	    	<tr>
-	    		<td>Pollo Saltado</td>
-	    		<td><input type="button" name="ralm101" id="ralm116" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm116" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm116" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm117" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm117" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm117" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm1018" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1018" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1018" value="+"></td>
-	    	</tr>
-	    	<tr>
-	    		<td>Milanesa c/papas f. ensalada y arroz</td>
-	    		<td><input type="button" name="ralm101" id="ralm1019" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1019" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1019" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm1020" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1020" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1020" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm1021" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1021" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1021" value="+"></td>
-	    	</tr>
-	    </table>
 
-
-	    <hr>
-
-
-	    <table>
-	    	<tr>
-	    		<td width="300">Flan</td>
-	    		<td><input type="button" name="ralm101" id="ralm1022" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1022" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1022" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm1023" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1023" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1023" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm1024" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1024" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1024" value="+"></td>
-	    	</tr>
-	    	<tr>
-	    		<td>Gelatina</td>
-	    		<td><input type="button" name="ralm101" id="ralm1025" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1025" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1025" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm1026" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1026" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1026" value="+"></td>
-	    		<td><input type="button" name="ralm101" id="ralm1027" value="-"></td>
-	    		<td><input type="text" name="alm101" id="alm1027" size="3" disabled></td>
-	    		<td><input type="button" name="salm101" id="salm1027" value="+"></td>
-	    	</tr>
-	    </table>
+	    <input type="button" onclick="document.f1.submit();" value="Submit">
 	</form>
   </body>
 </html>
