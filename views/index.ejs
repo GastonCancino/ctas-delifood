@@ -11,7 +11,7 @@
     <p>Welcome to <%= title %></p>
 
 	<form name="f1" action="grabaPedidoAdm" method="post">
-	    <p><input type="text" name="txtFecActual2" id="txtFecActual"></p>
+	    <p><input type="text" name="id_carta_x_fecha" id="id_carta_x_fecha"></p>
 	    <p>
 	    	<select name="lstTipoPedido" id="lstTipoPedido">
 	    		<option value="0">Seleccione</option>
@@ -29,7 +29,9 @@
 
 	    <table>
 	    	<tr>
-	    		<td width="300">Arroz adobo de pollo con camote o papa</td>
+	    		<td width="300">
+	    			<input type="hidden" name="id_alm_prog" id="hid_alm_prog1" value="1">Arroz adobo de pollo con camote o papa
+	    		</td>
 	    		<td><input type="button" name="ralm101" id="ralm101" value="-"></td>
 	    		<td>
 	    			<input type="hidden" name="halm101" id="halm101">
@@ -52,19 +54,34 @@
 	    		<td><input type="button" name="salm103" id="salm103" value="+"></td>
 	    	</tr>
 	    	<tr>
-	    		<td>Arroz + Hamburguesa + Vegetales</td>
+	    		<td>
+	    			<input type="hidden" name="id_alm_prog" id="hid_alm_prog2" value="2">Arroz + Hamburguesa + Vegetales
+	    		</td>
 	    		<td><input type="button" name="ralm104" id="ralm104" value="-"></td>
-	    		<td><input type="text" name="alm104" id="alm104" size="3" disabled></td>
+	    		<td>
+	    			<input type="hidden" name="halm104" id="halm104">
+	    			<input type="text" name="alm104" id="alm104" size="3" disabled>
+	    		</td>
 	    		<td><input type="button" name="salm104" id="salm104" value="+"></td>
+
 	    		<td><input type="button" name="ralm105" id="ralm105" value="-"></td>
-	    		<td><input type="text" name="alm105" id="alm105" size="3" disabled></td>
+	    		<td>
+	    			<input type="hidden" name="halm105" id="halm105">
+	    			<input type="text" name="alm105" id="alm105" size="3" disabled>
+	    		</td>
 	    		<td><input type="button" name="salm105" id="salm105" value="+"></td>
+
 	    		<td><input type="button" name="ralm106" id="ralm106" value="-"></td>
-	    		<td><input type="text" name="alm106" id="alm106" size="3" disabled></td>
+	    		<td>
+	    			<input type="hidden" name="halm106" id="halm106">
+	    			<input type="text" name="alm106" id="alm106" size="3" disabled>
+	    		</td>
 	    		<td><input type="button" name="salm106" id="salm106" value="+"></td>
 	    	</tr>
 	    	<tr>
-	    		<td>Arroz con carne asada y ensalada rusa</td>
+	    		<td>
+	    			<input type="hidden" name="id_alm_prog" id="hid_alm_prog3" value="3">Arroz con carne asada y ensalada rusa
+	    		</td>
 	    		<td><input type="button" name="ralm107" id="ralm107" value="-"></td>
 	    		<td><input type="text" name="alm107" id="alm107" size="3" disabled></td>
 	    		<td><input type="button" name="salm107" id="salm107" value="+"></td>
@@ -76,7 +93,9 @@
 	    		<td><input type="button" name="salm109" id="salm109" value="+"></td>
 	    	</tr>
 	    	<tr>
-	    		<td>Pachamanca de cerdo</td>
+	    		<td>
+	    			<input type="hidden" name="id_alm_prog" id="hid_alm_prog4" value="4">Pachamanca de cerdo
+	    		</td>
 	    		<td><input type="button" name="ralm1010" id="ralm1010" value="-"></td>
 	    		<td><input type="text" name="alm1010" id="alm1010" size="3" disabled></td>
 	    		<td><input type="button" name="salm1010" id="salm1010" value="+"></td>
