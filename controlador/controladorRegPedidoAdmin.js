@@ -3,61 +3,142 @@ var modeloRegPedidoAdmin = require('../modelo/modeloRegPedidoAdmin');
 var controlador = function(){};
 
 controlador.tomarPedido = function(req, res){
+
+	var vmsj1 = "Algo sucedió y no entró al proceso !!";
+	var flagCant = "";
+
+	// INICIO - transformando la fecha actual a formato aceptado por MySQL
+		var fechaActual = new Date();
+		var dia = fechaActual.getDate();
+		var mes = fechaActual.getMonth() + 1;
+		var anio = fechaActual.getFullYear();
+		var fechaActualMySQL = anio +"-"+ mes +"-"+ dia;
+	// FIN - transformando la fecha actual a formato aceptado por MySQL
 	
-
-	var datos = {
-		msj1 : 'Ok todo continua',
-		msj2 : JSON.stringify(req.body, null, 2)
-	};
-
-	//console.log("--->" + JSON.stringify(req.body, null, 2));
-	//console.log("-->" + res.json(req.body));
 	//console.log("--->" + req.body);
 
-	var jsonFormInputs = JSON.stringify(req.body, null, 2); //res.json(req.body); //
-	var parseFormInputs = JSON.parse(jsonFormInputs);
+	// INICIO - recibiendo datos del formulario
+		var varid_carta_x_fecha  = req.body.id_carta_x_fecha,
+			vartipo_pedido       = req.body.lstTipoPedido,
+			varlstEntidad        = req.body.lstEntidad,
+			varid_alm_prog       = req.body.id_alm_prog;
+			
 
-	var obj = [JSON.parse(jsonFormInputs)]; // [JSON.parse(jsonFormInputs)];
-	var keys = Object.keys(obj);
-	var valor;
-
-	//var registro = {
-		for(var i = 0; i < keys.length; i++){
-			valor = obj[keys[i]];
-			console.log(obj[keys[i]]);
-		}
-	//}
-
-	
-	// obtener los keys o atributos de un objeto json o arreglo.
-
-	// Forma 1:
-	var parseFormInputs = JSON.parse(jsonFormInputs);
-
-	for(var atr in parseFormInputs){
-		console.log(atr);
-		if(atr == "id_carta_x_fecha"){
-			console.log("ok");
-		}
-	}
-	/*
-
-	// Forma 2:
-	var objetoInp = [JSON.parse(parseFormInputs)];
-
-	for(var key in objetoInp[0]){
-		console.log(key);
-	}
-	*/
-
-	/*modeloRegPedidoAdmin.grabar(registro, function(err){
-		if(err){
-			console.log("Error no se pudo grabar el pedido, error: " + err);
+	if(varid_carta_x_fecha == "" || varid_carta_x_fecha == "undefined"){
+			vmsj1 = "La fecha esta vacía o es indefinida.";
+		}else if(vartipo_pedido == 0){
+			vmsj1 = "No se seleccionó un tipo de pedido.";
+		}else if(varlstEntidad == 0){
+			vmsj1 = "No se seleccionó una Empresa o Persona.";
+		}else if(varid_alm_prog == 0 || varid_alm_prog == "undefined"){
+			vmsj1 = "No se encontró ningún almuerzo programado.";
 		}else{
 
-		}
-	});*/
 
+		// Transformando la fecha del pedido a formato aceptado por MySQL
+			// truco para transformar a cadena con + '' y para que el split() no de error:
+			varid_carta_x_fecha = varid_carta_x_fecha + '';
+			var fecElementos    = varid_carta_x_fecha.split('/');
+			var diaCarta        = fecElementos[0];
+			var mesCarta        = fecElementos[1];
+			var anioCarta       = fecElementos[2];
+			var varid_carta_x_fechaFormat = anioCarta +"-"+ mesCarta +"-"+ diaCarta;
+
+		// Obteniendo cada almuerzo programado con split ya que en el formulario el name es el mismo (id_alm_prog)
+			// como varid_alm_prog es un objeto, truco transformamos a cadena con + ''; para que el split no de error.
+			varid_alm_prog = varid_alm_prog + '';    // console.log("--->" + varid_alm_prog);
+			var idAlmuerzosProg = varid_alm_prog.split(',');
+			var idAlmuerzoP;
+
+			var vartipo_precio_pedido = "";
+
+
+		// INICIO - Creando un insert por cada almuerzo programado (for con cada almuerzo separado con el split anterior)
+			for(var i = 0; i < idAlmuerzosProg.length; i++){
+				idAlmuerzoP = idAlmuerzosProg[i];
+			
+				//console.log("id almuerzo:" + idAlmuerzoP + ".");
+
+				var varhcantidad_pedido = req.body["hcantidad_pedido" + idAlmuerzoP];
+				varhcantidad_pedido = varhcantidad_pedido + '';
+				var cantidadesGratCredCont = varhcantidad_pedido.split(',');
+				var cantidad;
+
+				for(var j = 0; j < cantidadesGratCredCont.length; j++){
+
+					cantidad = cantidadesGratCredCont[j];
+
+					switch(j){
+						case 0:
+							vartipo_precio_pedido = "GRATIS";
+							break;
+						case 1:
+							vartipo_precio_pedido = "AL CREDITO";
+							break;
+						case 2:
+							vartipo_precio_pedido = "AL CONTADO";
+							break;
+					}
+
+					if(cantidad != 0 && cantidad != "undefined"){
+						var registro = {
+							id_carta_x_fecha   : varid_carta_x_fechaFormat,
+							tipo_pedido        : vartipo_pedido,
+							id_alm_prog        : idAlmuerzoP,
+							cantidad_pedido    : cantidad,
+							tipo_precio_pedido : vartipo_precio_pedido,
+							fecha_reg_pedido   : fechaActualMySQL
+						}
+
+						//console.log("->" + JSON.stringify(registro, null, 2));
+						flagCant = "ok";
+						vmsj1 = "";
+						modeloRegPedidoAdmin.grabar(registro, function(err){
+							if(err){
+									//req.msj1 = "No se pudo grabar el pedido, error: " + err;
+									//req.msj2 = JSON.stringify(req.body, null, 2);
+
+									//datos = {
+										//msj1: "No se pudo grabar el INSERT " + j + " del almuerzo " + idAlmuerzoP + ", error: " + err,
+										//msj2: JSON.stringify(req.body, null, 2)
+									//};
+									vmsj1 = "No se pudo grabar el INSERT " + j + " del almuerzo " + idAlmuerzoP + ", error: " + err;
+
+									// no se puede poner un res.render dentro de un bucle:
+									//res.render('ver-pedido-recuperado', datos);
+								} else{
+									//req.msj1 = "El pedido se registró correctamente.";
+									//req.msj2 = JSON.stringify(req.body, null, 2);
+
+									//datos = {
+										//msj1: "El pedido se registró correctamente.",
+										//msj2: JSON.stringify(req.body, null, 2)
+									//};
+									vmsj1 = "Registro correcto.";
+
+									// no se puede poner un res.render dentro de un bucle:
+									//res.render('ver-pedido-recuperado', datos);
+								}
+						});
+					}else{
+						if(flagCant != "ok"){
+							vmsj1 = "No se indicó ninguna cantidad para ningún almuerzo, por lo tanto no se registró nada.";
+						}
+					}
+
+				} //  for(   for par acantidades.
+
+			} //  for(   for para almuerzos programados.
+
+		// FIN - Creando un insert por cada almuerzo programado (for con cada almuerzo separado con el split anterior)
+
+	} //  if(...    validaciones antes de empezar el proceso.
+
+	if(vmsj1 == ""){vmsj1="Registro correcto.";}
+	var datos = {
+		msj1: vmsj1,
+		msj2: JSON.stringify(req.body, null, 2)
+	};
 
 	res.render('ver-pedido-recuperado', datos);
 }

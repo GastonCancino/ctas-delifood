@@ -28,10 +28,13 @@ CREATE TABLE `carta_x_fecha` (
 
 
 CREATE TABLE `pedido` (
-  `id_pedido` int(15) NOT NULL auto_increment COMMENT 'ID del pedido',
-  `id_carta_x_fecha` date NOT NULL COMMENT 'ID de la carta por fecha',
-  `id_alm_prog` int(10) NOT NULL COMMENT 'ID almuerzo programado',
-  `tipo_pedido` varchar(20) collate utf8_spanish_ci NOT NULL COMMENT 'Tipo de pedido hecho por Admin, por clientes desde Web o App',
-  `estado_pedido` tinyint(1) default '1' COMMENT 'Estado',
+  `id_pedido` INT(15) NOT NULL AUTO_INCREMENT COMMENT 'ID del pedido',
+  `id_carta_x_fecha` DATE NOT NULL COMMENT 'ID de la carta por fecha',
+  `id_alm_prog` INT(10) NOT NULL COMMENT 'ID almuerzo programado',
+  `tipo_pedido` VARCHAR(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Tipo de pedido hecho por Admin, por clientes desde Web o App',
+  `cantidad_pedido` INT(5) NOT NULL COMMENT 'Cantidad de pedidos por almuerzo',
+  `tipo_precio_pedido` VARCHAR(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Tipo de precio(GRATIS, AL CREDITO, AL CONTADO)',
+  `estado_pedido` TINYINT(1) DEFAULT '1' COMMENT 'Estado',
+  `fecha_reg_pedido` DATE NOT NULL COMMENT 'Fecha en que se registró el nuevo pedido',
   PRIMARY KEY  (`id_pedido`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MYISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
