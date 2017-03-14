@@ -6,7 +6,18 @@ var controladorRegPedidoAdmin = require('../controlador/controladorRegPedidoAdmi
 /* GET home page. */
 
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  	res.render('index', { title: 'Cuentas Delifood' });
+});
+
+router.get('/home', function(req, res, next){
+	res.render('index', { title: 'Cuentas Delifood' });
+});
+
+router.get('/registrar-pedido', function(req, res, next){
+	var f = new Date();
+	var mes = f.getMonth()+1;
+	var fechaActual = f.getDate() +"/"+ mes +"/"+ f.getFullYear();
+	res.render('registrar-pedido', { title: 'Cuentas Delifood', fechaActual: fechaActual });
 });
 
 
