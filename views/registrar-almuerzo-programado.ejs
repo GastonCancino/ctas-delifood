@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="javascripts/jquery-3.1.1.min.js"></script>
+  </head>
+  <body onmousedown="elemento(event);">
+    <!-- barra de navegacion con bootstrap, estatica en la parte superior -->
+    <%- include('commons/nav-bar'); %>
+
+    <!--panel-->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Registrar Almuerzo</h3>
+      </div>
+
+      <div class="panel-body">
+
+        <form name="f1" action="regAlmuerzoProgramado" method="post">
+          <div class="form-group">
+            <div class="row">
+              <table>
+                <tr>
+                  <td><label for="inputdefault">Nombre del Almuerzo:</label></td>
+                  <td><input type="text" name="" id="" class="form-control"></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <input type="submit" class="btn btn-primary" value="Guardar">
+        </form>
+
+      </div>
+
+    </div>
+    <!--fin panel-->
+
+
+	
+
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

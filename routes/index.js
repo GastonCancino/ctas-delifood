@@ -20,7 +20,13 @@ router.get('/registrar-pedido', function(req, res, next){
 	res.render('registrar-pedido', { title: 'Cuentas Delifood', fechaActual: fechaActual });
 });
 
+router.get('/registrar-almuerzo-programado', function(req, res, next){
+	res.render('registrar-almuerzo-programado', { title: 'Cuentas Delifood'});
+});
 
-router.post('/grabaPedidoAdm', controladorRegPedidoAdmin.tomarPedido);
+
+router.post('/regPedidoAdm', controladorRegPedidoAdmin.tomarPedido);
+
+router.post('/regAlmuerzoProgramado', )
 
 module.exports = router;
