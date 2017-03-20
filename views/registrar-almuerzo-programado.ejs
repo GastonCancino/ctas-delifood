@@ -11,6 +11,7 @@
     <%- include('commons/nav-bar'); %>
 
     <!--panel-->
+    <br>
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">Registrar Almuerzo</h3>
@@ -18,19 +19,18 @@
 
       <div class="panel-body">
 
+        <% if(datos.msj1 != ""){ %>
+        <div class="alert alert-<%= datos.msjTipo %>"><%= datos.msj1 %></div>
+        <% } %>
+
         <form name="f1" action="regAlmuerzoProgramado" method="post">
-          <div class="form-group">
-            <div class="row">
-              <table>
+              <table class="table table-striped">
                 <tr>
                   <td><label for="inputdefault">Nombre del Almuerzo:</label></td>
-                  <td><input type="text" name="" id="" class="form-control"></td>
+                  <td><input type="text" name="nombre_alm_prog" id="nombre_alm_prog" class="form-control"></td>
                 </tr>
               </table>
-            </div>
-          </div>
-
-          <input type="submit" class="btn btn-primary" value="Guardar">
+          <input type="submit" class="btn btn-primary" value="Grabar">
         </form>
 
       </div>
@@ -38,8 +38,6 @@
     </div>
     <!--fin panel-->
 
-
-	
 
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>

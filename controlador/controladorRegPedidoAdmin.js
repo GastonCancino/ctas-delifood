@@ -57,8 +57,8 @@ controlador.tomarPedido = function(req, res){
 			for(var i = 0; i < idAlmuerzosProg.length; i++){
 				idAlmuerzoP = idAlmuerzosProg[i];
 			
-				//console.log("id almuerzo:" + idAlmuerzoP + ".");
-
+				
+				// obteniendo cada cantidad con req.body["hcantidad_pedido" + idAlmuerzoP]
 				var varhcantidad_pedido = req.body["hcantidad_pedido" + idAlmuerzoP];
 				varhcantidad_pedido = varhcantidad_pedido + '';
 				var cantidadesGratCredCont = varhcantidad_pedido.split(',');
@@ -93,7 +93,7 @@ controlador.tomarPedido = function(req, res){
 						//console.log("->" + JSON.stringify(registro, null, 2));
 						flagCant = "ok";
 						vmsj1 = "";
-						modeloRegPedidoAdmin.grabar(registro, function(err){
+						modeloRegPedidoAdmin.grabarPedidoAdmin(registro, function(err){
 							if(err){
 									//req.msj1 = "No se pudo grabar el pedido, error: " + err;
 									//req.msj2 = JSON.stringify(req.body, null, 2);
@@ -114,7 +114,7 @@ controlador.tomarPedido = function(req, res){
 										//msj1: "El pedido se registró correctamente.",
 										//msj2: JSON.stringify(req.body, null, 2)
 									//};
-									vmsj1 = "Registro correcto.";
+									vmsj1 = "Se grabó correctamente.";
 
 									// no se puede poner un res.render dentro de un bucle:
 									//res.render('ver-pedido-recuperado', datos);
@@ -134,7 +134,7 @@ controlador.tomarPedido = function(req, res){
 
 	} //  if(...    validaciones antes de empezar el proceso.
 
-	if(vmsj1 == ""){vmsj1="Registro correcto.";}
+	if(vmsj1 == ""){vmsj1="Se grabó correctamente.";}
 	var datos = {
 		msj1: vmsj1,
 		msj2: JSON.stringify(req.body, null, 2)

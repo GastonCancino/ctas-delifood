@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="javascripts/jquery-3.1.1.min.js"></script>
+  </head>
+  <body onmousedown="elemento(event);">
+    <!-- barra de navegacion con bootstrap, estatica en la parte superior -->
+    <%- include('commons/nav-bar'); %>
+
+    <!--panel-->
+    <br>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Carta de hoy</h3>
+      </div>
+
+      <div class="panel-body">
+
+        <% if(msj1 != ""){ %>
+        <div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
+        <% } %>
+
+        <form name="f1" action="" method="post">
+          <table class="table table-striped">
+            <tr>
+              <th>Fecha</th>
+              <th>Almuerzo</th>
+              <th>Precio</th>
+            </tr>
+            <% registrosCarta.forEach(function(registro){ %>
+            <tr>
+              <td><label for="inputdefault">
+              <%  
+                var cero = '0';
+                var fechaMySQL = registro.id_carta_x_fecha;
+                var dia = fechaMySQL.getDate();
+                var mes = fechaMySQL.getMonth() + 1;
+                var anio = fechaMySQL.getFullYear();
+                if(dia < 10){
+                  dia = cero.concat(dia);
+                }
+                if(mes < 10){
+                  mes = cero.concat(mes);
+                }
+                var fechaFormateada = anio +"-"+ mes +"-"+ dia;
+              %>
+              <%= fechaFormateada %></label></td>
+              <td><label for="inputdefault"><%= registro.nombre_alm_prog %></label></td>
+              <td><label for="inputdefault"><%= registro.precio_alm_prog %></label></td>
+            </tr>
+            <% }) %>
+          </table>
+          <% if(registrosCarta.length > 0){ %>
+            <input type="submit" class="btn btn-primary" value="Aplicar">
+          <% } %>
+        </form>
+
+      </div>
+
+    </div>
+    <!--fin panel-->
+
+
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

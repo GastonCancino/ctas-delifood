@@ -2,8 +2,8 @@ var conexion = require('../conexiones/connMySQL');
 
 var modelo = function(){};
 
-modelo.grabar = function(registro, cb){
+modelo.grabarPedidoAdmin = function(registro, cb){
 	conexion.query("insert into pedido set ?", registro, cb);
 }
 
-module.exports = modelo
+module.exports = modelo;
