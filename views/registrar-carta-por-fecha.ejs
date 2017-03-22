@@ -10,7 +10,7 @@
     <!-- barra de navegacion con bootstrap, estatica en la parte superior -->
     <%- include('commons/nav-bar'); %>
 
-    <!--panel-->
+    <!--panel 1-->
     <br>
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -45,7 +45,7 @@
                 if(mes < 10){
                   mes = cero.concat(mes);
                 }
-                var fechaFormateada = anio +"-"+ mes +"-"+ dia;
+                var fechaFormateada = dia +"-"+ mes +"-"+ anio;
               %>
               <%= fechaFormateada %></label></td>
               <td><label for="inputdefault"><%= registro.nombre_alm_prog %></label></td>
@@ -61,7 +61,44 @@
       </div>
 
     </div>
-    <!--fin panel-->
+    <!--fin panel 1-->
+
+
+    <!-- panel 2-->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Agregar almuerzo a la carta de hoy</h3>
+      </div>
+      
+      
+      <div class="panel-body">
+        
+        <% if(msj1 != ""){ %>
+        <div class="alert alert-<%= msjTipo %>"><%= msj1 %>hola</div>
+        <% } %>
+
+        <form name="f2" action="" method="post">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-xs-4">
+                <label for="inputdefault"></label>
+                <select class="form-control" name="lstAlmuerzos" id="lstAlmuerzos">
+                  <option value="0">Seleccionar</option>
+
+                  <% registrosAllAlmuerzoProg.forEach(function(registro){ %>
+                  <option value="<%= registro.id_alm_prog %>"><%= registro.nombre_alm_prog %></option>
+                  <% }) %>
+                  
+                </select>
+              </div>
+              
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+    <!-- fin panel 2-->
 
 
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

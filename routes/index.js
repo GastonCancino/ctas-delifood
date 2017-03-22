@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var controladorRegPedidoAdmin = require('../controlador/controladorRegPedidoAdmin');
-var controladorRegAlmuerzoProg = require('../controlador/controladorRegAlmuerzoProg');
+var controladorAlmuerzoProg = require('../controlador/controladorAlmuerzoProg');
 var controladorCartaxFecha = require('../controlador/controladorCartaxFecha');
 
 /* GET home page. */
@@ -42,8 +42,8 @@ router.get('/registrar-almuerzo-programado', function(req, res, next){
 
 router.post('/regPedidoAdm', controladorRegPedidoAdmin.tomarPedido);
 
-router.post('/regAlmuerzoProgramado', controladorRegAlmuerzoProg.grabarAlmuerzoProg);
+router.post('/regAlmuerzoProgramado', controladorAlmuerzoProg.grabarAlmuerzoProg);
 
-router.get('/registrar-carta-por-fecha', controladorCartaxFecha.mostrarCartaDeHoy);
+router.get('/registrar-carta-por-fecha', controladorCartaxFecha.mostrarCartaDeHoy, controladorAlmuerzoProg.mostrarTodosAlmuerzoProg);
 
 module.exports = router;
