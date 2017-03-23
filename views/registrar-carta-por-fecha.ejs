@@ -23,39 +23,65 @@
         <div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
         <% } %>
 
+        <%  
+          var ceroA = '0';
+          var fechaHoy = new Date();
+          var diaA = fechaHoy.getDate();
+          var mesA = fechaHoy.getMonth() + 1;
+          var anioA = fechaHoy.getFullYear();
+          if(diaA < 10){
+            diaA = ceroA.concat(diaA);
+          }
+          if(mesA < 10){
+            mesA = ceroA.concat(mesA);
+          }
+          var fechaHoyMySQL = anioA +"-"+ mesA +"-"+ diaA;
+        %>
+
         <form name="f1" action="" method="post">
           <table class="table table-striped">
             <tr>
               <th>Fecha</th>
               <th>Almuerzo</th>
               <th>Precio</th>
+              <th>Eliminar</th>
             </tr>
             <% registrosCarta.forEach(function(registro){ %>
             <tr>
-              <td><label for="inputdefault">
-              <%  
-                var cero = '0';
-                var fechaMySQL = registro.id_carta_x_fecha;
-                var dia = fechaMySQL.getDate();
-                var mes = fechaMySQL.getMonth() + 1;
-                var anio = fechaMySQL.getFullYear();
-                if(dia < 10){
-                  dia = cero.concat(dia);
-                }
-                if(mes < 10){
-                  mes = cero.concat(mes);
-                }
-                var fechaFormateada = dia +"-"+ mes +"-"+ anio;
-              %>
-              <%= fechaFormateada %></label></td>
+              <td>
+                <label for="inputdefault">
+                <%  
+                  var cero = '0';
+                  var fechaMySQL = registro.id_carta_x_fecha;
+                  var dia = fechaMySQL.getDate();
+                  var mes = fechaMySQL.getMonth() + 1;
+                  var anio = fechaMySQL.getFullYear();
+                  if(dia < 10){
+                    dia = cero.concat(dia);
+                  }
+                  if(mes < 10){
+                    mes = cero.concat(mes);
+                  }
+                  var fechaFormateada = dia +"-"+ mes +"-"+ anio;
+                  var fechaFormateadaMySQL = anio +"-"+ mes +"-"+ dia;
+                %>
+                <%= fechaFormateada %></label>
+                <input type="hidden" name="id_carta_x_fecha1" id="id_carta_x_fecha1" value="<%= fechaFormateadaMySQL %>">
+                <input type="hidden" name="id_alm_prog" id="id_alm_prog" value="<%= registro.id_alm_prog %>">
+              </td>
               <td><label for="inputdefault"><%= registro.nombre_alm_prog %></label></td>
               <td><label for="inputdefault"><%= registro.precio_alm_prog %></label></td>
+              <td>
+                
+                <!-- pasando 2 parámetros para los 2 PLACE HOLDERS -->
+                <a href="/borrar-almuerzo-de-carta/<%= fechaFormateadaMySQL %>/<%= registro.id_alm_prog %>">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </a>
+
+              </td>
             </tr>
             <% }) %>
           </table>
-          <% if(registrosCarta.length > 0){ %>
-            <input type="submit" class="btn btn-primary" value="Aplicar">
-          <% } %>
         </form>
 
       </div>
@@ -73,15 +99,15 @@
       
       <div class="panel-body">
         
-        <% if(msj1 != ""){ %>
-        <div class="alert alert-<%= msjTipo %>"><%= msj1 %>hola</div>
+        <% if(msj2 != ""){ %>
+        <div class="alert alert-<%= msjTipo %>"><%= msj2 %></div>
         <% } %>
 
-        <form name="f2" action="" method="post">
+        <form name="f2" action="agregar-almuerzo-a-carta" method="post">
           <div class="form-group">
             <div class="row">
               <div class="col-xs-4">
-                <label for="inputdefault"></label>
+                <label for="inputdefault">Almuerzo</label>
                 <select class="form-control" name="lstAlmuerzos" id="lstAlmuerzos">
                   <option value="0">Seleccionar</option>
 
@@ -90,10 +116,20 @@
                   <% }) %>
                   
                 </select>
+                <input type="hidden" name="id_carta_x_fecha" id="id_carta_x_fecha" value="<%= fechaHoyMySQL %>">
+              </div>
+              <div class="col-xs-1">
+                <label for="inputdefault">Precio</label>
+                <input type="text" name="precio_alm_prog" id="precio_alm_prog" class="form-control">
               </div>
               
             </div>
           </div>
+
+          <% if(registrosAllAlmuerzoProg.length > 0){ %>
+            <input type="submit" class="btn btn-primary" value="Agregar a la carta">
+          <% } %>
+
         </form>
 
       </div>

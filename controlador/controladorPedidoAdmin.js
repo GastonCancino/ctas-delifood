@@ -1,4 +1,4 @@
-var modeloRegPedidoAdmin = require('../modelo/modeloRegPedidoAdmin');
+var modeloPedidoAdmin = require('../modelo/modeloPedidoAdmin');
 
 var controlador = function(){};
 
@@ -93,7 +93,7 @@ controlador.tomarPedido = function(req, res){
 						//console.log("->" + JSON.stringify(registro, null, 2));
 						flagCant = "ok";
 						vmsj1 = "";
-						modeloRegPedidoAdmin.grabarPedidoAdmin(registro, function(err){
+						modeloPedidoAdmin.grabarPedidoAdmin(registro, function(err){
 							if(err){
 									//req.msj1 = "No se pudo grabar el pedido, error: " + err;
 									//req.msj2 = JSON.stringify(req.body, null, 2);
