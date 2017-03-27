@@ -4,6 +4,7 @@ var router = express.Router();
 var controladorPedidoAdmin = require('../controlador/controladorPedidoAdmin');
 var controladorAlmuerzoProg = require('../controlador/controladorAlmuerzoProg');
 var controladorCartaxFecha = require('../controlador/controladorCartaxFecha');
+var controladorEntidad = require('../controlador/controladorEntidad');
 
 /* GET home page. */
 
@@ -29,12 +30,16 @@ router.get('/home', function(req, res, next){
 
 // INICIO - Página "Pedido"
 
-router.get('/registrar-pedido', function(req, res, next){
+/*router.get('/registrar-pedido', function(req, res, next){
 	var f = new Date();
 	var mes = f.getMonth()+1;
 	var fechaActual = f.getDate() +"/"+ mes +"/"+ f.getFullYear();
-	res.render('registrar-pedido', { title: 'Cuentas Delifood', fechaActual: fechaActual });
-});
+	req.title = 'Cuentas Delifood';
+	req.fechaActual = fechaActual;
+	//res.render('registrar-pedido', { title: 'Cuentas Delifood', fechaActual: fechaActual }, controladorEntidad.mostrarEntidades);
+});*/
+router.get('/registrar-pedido', controladorEntidad.mostrarTipoEntidades);
+
 
 router.post('/regPedidoAdm', controladorPedidoAdmin.tomarPedido);
 
@@ -47,8 +52,9 @@ router.post('/regPedidoAdm', controladorPedidoAdmin.tomarPedido);
 
 router.get('/registrar-almuerzo-programado', function(req, res, next){
 	var datos = {
-		msjFlag : "",
-		msj1    : ""
+		msjFlag        : "",
+		msj1           : "",
+		nombreAlmuerzo : ""
 	}
 	res.render('registrar-almuerzo-programado', { title: 'Cuentas Delifood', datos});
 });

@@ -1,11 +1,11 @@
 var conexion = require('../conexiones/connMySQL');
 
-var modelo = function(){}
+var modelo = function(){};
 
 
 // para página "Registros" - "Carta de hoy" ------------------------------------
 modelo.mostrarCartaDeHoy = function(fecha, cb){
-	conexion.query("select id_carta_x_fecha, cf.id_alm_prog, ap.nombre_alm_prog, precio_alm_prog, estado_carta_x_fecha from carta_x_fecha cf inner join almuerzo_prog ap on cf.id_alm_prog = ap.id_alm_prog where id_carta_x_fecha=?", fecha, cb);
+	conexion.query("SELECT id_carta_x_fecha, cf.id_alm_prog, ap.nombre_alm_prog, precio_alm_prog, estado_carta_x_fecha, ap.id_tipo_comida, nombre_tipo_comida FROM carta_x_fecha cf INNER JOIN almuerzo_prog ap ON cf.id_alm_prog = ap.id_alm_prog INNER JOIN tipo_comida tc ON ap.id_tipo_comida = tc.id_tipo_comida WHERE estado_carta_x_fecha=1 AND id_carta_x_fecha=? ORDER BY ap.id_tipo_comida", fecha, cb);
 };
 
 

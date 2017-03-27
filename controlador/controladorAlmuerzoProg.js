@@ -9,14 +9,16 @@ var controlador = function(){};
 
 controlador.grabarAlmuerzoProg = function(req, res){
 
-	var vnombre_alm_prog = req.body.nombre_alm_prog;
+	var vnombre_alm_prog = req.body.nombre_alm_prog,
+	vlstid_tipo_comida = req.body.lstid_tipo_comida;
 	vnombre_alm_prog = vnombre_alm_prog.trim();
 
-	if(vnombre_alm_prog == ""){
+	if(vnombre_alm_prog == "" || vlstid_tipo_comida == 0){
 
 		var datos = {
-			msjTipo : "warning",
-			msj1    : "Tiene que ingresar un nombre"
+			msjTipo        : "warning",
+			msj1           : "Tiene que ingresar un nombre y seleccionar el tipo.",
+			nombreAlmuerzo : vnombre_alm_prog
 		}
 
 		res.render('registrar-almuerzo-programado', { title: 'Cuentas Delifood', datos});
@@ -24,7 +26,8 @@ controlador.grabarAlmuerzoProg = function(req, res){
 	} else{
 
 		var registro = {
-			nombre_alm_prog : vnombre_alm_prog
+			nombre_alm_prog : vnombre_alm_prog,
+			id_tipo_comida  : vlstid_tipo_comida
 		}
 
 		modeloAlmuerzoProg.grabarAlmuerzoProg(registro, function(err){
@@ -32,7 +35,8 @@ controlador.grabarAlmuerzoProg = function(req, res){
 
 				var datos = {
 					msjTipo : "danger",
-					msj1 : "No se pudo grabar, error: " + err
+					msj1 : "No se pudo grabar, error: " + err,
+					nombreAlmuerzo : ""
 				}
 
 				res.render('registrar-almuerzo-programado', { title: 'Cuentas Delifood', datos});
@@ -41,7 +45,8 @@ controlador.grabarAlmuerzoProg = function(req, res){
 
 				var datos = {
 					msjTipo : "success",
-					msj1 : "Se grabó correctamente."
+					msj1 : "Se grabó correctamente.",
+					nombreAlmuerzo : ""
 				}
 
 				res.render('registrar-almuerzo-programado', { title: 'Cuentas Delifood', datos});

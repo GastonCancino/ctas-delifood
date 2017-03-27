@@ -31,14 +31,20 @@
 			    		<div class="col-xs-5"></div>
 			    	</div>
 			    </div>
+
+				<% if(msj1 != ""){ %>
+	 			<div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
+	 			<% } %>
+
 			    <div class="form-group">
 			    	<div class="row">
 				    	<div class="col-xs-2">
 				    		<label for="inputdefault">Entidad:</label>
 					    	<select class="form-control" name="lstTipoPedido" id="lstTipoPedido">
 					    		<option value="0">Seleccione</option>
-					    		<option value="Empresa">Empresa</option>
-					    		<option value="Persona">Persona</option>
+					    		<% registrosAllTipoEntidades.forEach(function(registro){ %>
+					    		<option value="<%= registro.id_tipo_ent %>"><%= registro.nombre_tipo_ent %></option>
+					    		<% }) %>
 					    	</select>
 				    	</div>
 				    	<div class="col-xs-4">

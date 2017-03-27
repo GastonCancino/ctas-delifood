@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <script src="javascripts/jquery-3.1.1.min.js"></script>
   </head>
-  <body onmousedown="elemento(event);">
+  <body>
     <!-- barra de navegacion con bootstrap, estatica en la parte superior -->
     <%- include('commons/nav-bar'); %>
 
@@ -44,6 +44,7 @@
               <th>Fecha</th>
               <th>Almuerzo</th>
               <th>Precio</th>
+              <th>Tipo</th>
               <th>Eliminar</th>
             </tr>
             <% registrosCarta.forEach(function(registro){ %>
@@ -71,6 +72,7 @@
               </td>
               <td><label for="inputdefault"><%= registro.nombre_alm_prog %></label></td>
               <td><label for="inputdefault"><%= registro.precio_alm_prog %></label></td>
+              <td><label for="inputdefault"><%= registro.nombre_tipo_comida %></label></td>
               <td>
                 
                 <!-- pasando 2 parámetros para los 2 PLACE HOLDERS -->
@@ -111,8 +113,52 @@
                 <select class="form-control" name="lstAlmuerzos" id="lstAlmuerzos">
                   <option value="0">Seleccionar</option>
 
-                  <% registrosAllAlmuerzoProg.forEach(function(registro){ %>
-                  <option value="<%= registro.id_alm_prog %>"><%= registro.nombre_alm_prog %></option>
+                  <% registrosAllAlmuerzoProg.forEach(function(registro){
+                    var nom = registro.nombre_alm_prog;
+                    var nomLargo = nom.length;
+                    var cantEspacios = 60 - nomLargo;
+                    if(nomLargo < 15){
+                      cantEspacios = cantEspacios + 10;
+                    } else{
+                      if(nomLargo < 20){
+                        cantEspacios = cantEspacios + 5;
+                      } else{
+                        if(nomLargo < 25){
+                          cantEspacios = cantEspacios + 3;
+                        } else{
+                          if(nomLargo < 30){
+                            cantEspacios = cantEspacios;
+                          } else{
+                            if(nomLargo < 35){
+                              cantEspacios = cantEspacios - 3;
+                            } else{
+                              if(nomLargo < 40){
+                                cantEspacios = cantEspacios - 7;
+                              } else{
+                                if(nomLargo < 45){
+                                  cantEspacios = cantEspacios - 13;
+                                } else{
+                                    if(nomLargo < 50){
+                                    cantEspacios = cantEspacios - 21;
+                                  } else{
+                                    cantEspacios = 3;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                    
+                    var espacios = "&nbsp;";
+                    if(cantEspacios > 0){
+                      for(i=0; i < cantEspacios; i++){
+                        espacios = espacios + "&nbsp;";
+                      }
+                    }
+                  %>
+                  <option value="<%= registro.id_alm_prog %>"><%= registro.nombre_alm_prog %><%- espacios %>(<%= registro.nombre_tipo_comida %>)</option>
                   <% }) %>
                   
                 </select>
