@@ -38,8 +38,7 @@ router.get('/home', function(req, res, next){
 	req.fechaActual = fechaActual;
 	//res.render('registrar-pedido', { title: 'Cuentas Delifood', fechaActual: fechaActual }, controladorEntidad.mostrarEntidades);
 });*/
-router.get('/registrar-pedido', controladorEntidad.mostrarTipoEntidades);
-
+router.get('/registrar-pedido', controladorEntidad.mostrarTipoEntidades, controladorEntidad.mostrarEntidadesFiltradas);
 
 router.post('/regPedidoAdm', controladorPedidoAdmin.tomarPedido);
 

@@ -3,7 +3,7 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`bdctas_delifood` /*!40100 DEFAULT CHARA
 USE `bdctas_delifood`;
 
 CREATE TABLE `tipo_entidad` (
-  `id_tipo_ent` INT(4) NOT NULL AUTO_INCREMENT COMMENT 'ID entidad',
+  `id_tipo_ent` INT(4) NOT NULL AUTO_INCREMENT COMMENT 'ID tipo entidad',
   `nombre_tipo_ent` VARCHAR(200) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Nombre',
   `estado_tipo_ent` TINYINT(1) DEFAULT '1' COMMENT 'Estado',
   PRIMARY KEY  (`id_tipo_ent`)
@@ -11,10 +11,11 @@ CREATE TABLE `tipo_entidad` (
 
 
 CREATE TABLE `entidad` (
-  `id_ent` int(10) NOT NULL auto_increment COMMENT 'ID entidad',
+  `id_ent` int(4) NOT NULL auto_increment COMMENT 'ID entidad',
+  `id_tipo_ent` INT(4) NOT NULL COMMENT 'ID tipo entidad',
   `nombre_ent` varchar(200) collate utf8_spanish_ci default NULL COMMENT 'Nombre',
   `estado_ent` tinyint(1) default '1' COMMENT 'Estado',
-  PRIMARY KEY  (`id_ent`)
+  PRIMARY KEY  (`id_ent`, `id_tipo_ent`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 

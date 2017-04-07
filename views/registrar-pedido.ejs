@@ -19,7 +19,8 @@
 	    	<h3 class="panel-title">Registrar Pedido</h3>
 	 	</div>
 	 	<div class="panel-body">
-
+<form name="f2" id="f2" action="/registrar-pedido" method="get">
+</form>
 			<form name="f1" action="regPedidoAdm" method="post">
 			    <div class="form-group">
 			    	<div class="row">
@@ -40,21 +41,22 @@
 			    	<div class="row">
 				    	<div class="col-xs-2">
 				    		<label for="inputdefault">Entidad:</label>
-					    	<select class="form-control" name="lstTipoPedido" id="lstTipoPedido">
+				    		
+					    	<select class="form-control" name="lstTipoPedido" id="lstTipoPedido" onchange="document.getElementById('f2').submit()">
 					    		<option value="0">Seleccione</option>
 					    		<% registrosAllTipoEntidades.forEach(function(registro){ %>
 					    		<option value="<%= registro.id_tipo_ent %>"><%= registro.nombre_tipo_ent %></option>
 					    		<% }) %>
 					    	</select>
+					    	
 				    	</div>
 				    	<div class="col-xs-4">
 				    		<label for="inputdefault">Empresas/Personas</label>
 					    	<select class="form-control" name="lstEntidad" id="lstEntidad">
 					    		<option value="0">Seleccione</option>
-					    		<option value="Entel">Entel</option>
-					    		<option value="COSAPI">COSAPI</option>
-					    		<option value="Nissan">Nissan</option>
-					    		<option value="Toyota">Toyota</option>
+					    		<% registrosFilEntidades.forEach(function(registro){ %>
+					    		<option value="<%= registro.id_ent %>"><%= registro.nombre_ent %></option>
+					    		<% }) %>
 					    	</select>
 				    	</div>
 			    	</div>
