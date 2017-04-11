@@ -16,7 +16,7 @@ controlador.mostrarTipoEntidades = function(req, res, next){
 				title                     : 'Cuentas Delifood',
 				fechaActual               : vfechaActual,
 				registrosAllTipoEntidades : [],
-				vlstTipoPedido            : '',
+				vTipoPedido               : '',
 				registrosFilEntidades     : []
 			}
 
@@ -29,7 +29,7 @@ controlador.mostrarTipoEntidades = function(req, res, next){
 
 			var vmsj1 = "";
 			if(registrosTipoEntidades < 1){
-				vmsj1 = "No se encontraron tipo de entidades.";
+				vmsj1 = "No se encontraron tipos de entidades.";
 			}
 			var datos = {
 				msjTipo                   : "info",
@@ -38,14 +38,16 @@ controlador.mostrarTipoEntidades = function(req, res, next){
 				title                     : 'Cuentas Delifood',
 				fechaActual               : vfechaActual,
 				registrosAllTipoEntidades : registrosTipoEntidades,
-				vlstTipoPedido            : '',
+				vTipoPedido               : '',
 				registrosFilEntidades     : []
 			}
 
 			
 			req.vmsj1 = vmsj1;
 			req.vfechaActual = vfechaActual;
+			req.txtTipoPedido = req.query.txtTipoPedido;  // req.query por que se usa GET
 			req.registrosAllTipoEntidades = registrosTipoEntidades;
+
 			next();
 			//res.render('registrar-pedido', datos);
 
@@ -56,41 +58,63 @@ controlador.mostrarTipoEntidades = function(req, res, next){
 
 controlador.mostrarEntidadesFiltradas = function(req, res){
 
-	var vlstTipoPedido = req.body.lstTipoPedido;
-console.log("-------------->" + vlstTipoPedido);
-	modeloEntidad.mostrarEntidadesFiltradas(vlstTipoPedido, function(err, registrosEntidades){
-		if(err){
+	var vTipoPedido = req.txtTipoPedido;
 
-			var datos = {
-				msjTipo                   : "danger",
-				msj1                      : 'No se pudieron mostrar las entidades, error: ' + err,
-				msj2                      : '', 
-				title                     : 'Cuentas Delifood',
-				fechaActual               : req.vfechaActual,
-				registrosAllTipoEntidades : req.registrosAllTipoEntidades,
-				vlstTipoPedido            : vlstTipoPedido,
-				registrosFilEntidades     : []
+	if(vTipoPedido != 0 && vTipoPedido != undefined){
+
+
+		modeloEntidad.mostrarEntidadesFiltradas(vTipoPedido, function(err, registrosEntidades){
+			if(err){
+
+				var datos = {
+					msjTipo                   : "danger",
+					msj1                      : 'No se pudieron mostrar las entidades, error: ' + err,
+					msj2                      : '', 
+					title                     : 'Cuentas Delifood',
+					fechaActual               : req.vfechaActual,
+					registrosAllTipoEntidades : req.registrosAllTipoEntidades,
+					vTipoPedido               : vTipoPedido,
+					registrosFilEntidades     : []
+				}
+
+				res.render('registrar-pedido', datos);
+
+			} else{
+
+				var vmsj1 = '';
+				if(registrosEntidades.length < 1){
+					var vmsj1 = 'No se encontraron entidades.';
+				}
+				var datos = {
+					msjTipo                   : "info",
+					msj1                      : vmsj1,
+					msj2                      : '', 
+					title                     : 'Cuentas Delifood',
+					fechaActual               : req.vfechaActual,
+					registrosAllTipoEntidades : req.registrosAllTipoEntidades,
+					vTipoPedido               : vTipoPedido,
+					registrosFilEntidades     : []
+				}
+
+				res.render('registrar-pedido', datos);
+
 			}
+		});
+	} else{
 
-			res.render('registrar-pedido', datos);
-
-		} else{
-
-			var datos = {
-				msjTipo                   : "danger",
-				msj1                      : 'No se pudieron mostrar las entidades, error: ' + err,
-				msj2                      : '', 
-				title                     : 'Cuentas Delifood',
-				fechaActual               : req.vfechaActual,
-				registrosAllTipoEntidades : req.registrosAllTipoEntidades,
-				vlstTipoPedido            : vlstTipoPedido,
-				registrosFilEntidades     : registrosEntidades
-			}
-
-			res.render('registrar-pedido', datos);
-
+		var datos = {
+			msjTipo                   : "info",
+			msj1                      : 'Para mostrar las Personas/Empresas debe seleccionar un tipo de Entidad.',
+			msj2                      : '', 
+			title                     : 'Cuentas Delifood',
+			fechaActual               : req.vfechaActual,
+			registrosAllTipoEntidades : req.registrosAllTipoEntidades,
+			vTipoPedido               : vTipoPedido,
+			registrosFilEntidades     : []
 		}
-	});
+
+		res.render('registrar-pedido', datos);
+	}
 
 }
 

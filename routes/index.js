@@ -40,6 +40,8 @@ router.get('/home', function(req, res, next){
 });*/
 router.get('/registrar-pedido', controladorEntidad.mostrarTipoEntidades, controladorEntidad.mostrarEntidadesFiltradas);
 
+//router.post('/registrar-pedido', controladorEntidad.mostrarTipoEntidades, controladorEntidad.mostrarEntidadesFiltradas);
+
 router.post('/regPedidoAdm', controladorPedidoAdmin.tomarPedido);
 
 // FIN - Página "Pedido"

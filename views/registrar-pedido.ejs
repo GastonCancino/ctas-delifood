@@ -20,6 +20,8 @@
 	 	</div>
 	 	<div class="panel-body">
 <form name="f2" id="f2" action="/registrar-pedido" method="get">
+	<input type="text" name="txtTipoPedido" id="txtTipoPedido" value="<% if(vTipoPedido > 0){ %><%= vTipoPedido %><% } %>">
+	<input type="text" name="txtEntidad" id="txtEntidad">
 </form>
 			<form name="f1" action="regPedidoAdm" method="post">
 			    <div class="form-group">
@@ -42,7 +44,7 @@
 				    	<div class="col-xs-2">
 				    		<label for="inputdefault">Entidad:</label>
 				    		
-					    	<select class="form-control" name="lstTipoPedido" id="lstTipoPedido" onchange="document.getElementById('f2').submit()">
+					    	<select class="form-control" name="lstTipoPedido" id="lstTipoPedido" onchange="document.getElementById('txtTipoPedido').value = document.getElementById('lstTipoPedido').value ;document.getElementById('f2').submit()">
 					    		<option value="0">Seleccione</option>
 					    		<% registrosAllTipoEntidades.forEach(function(registro){ %>
 					    		<option value="<%= registro.id_tipo_ent %>"><%= registro.nombre_tipo_ent %></option>
