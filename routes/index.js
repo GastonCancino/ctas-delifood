@@ -5,6 +5,7 @@ var controladorPedidoAdmin = require('../controlador/controladorPedidoAdmin');
 var controladorAlmuerzoProg = require('../controlador/controladorAlmuerzoProg');
 var controladorCartaxFecha = require('../controlador/controladorCartaxFecha');
 var controladorEntidad = require('../controlador/controladorEntidad');
+var controladorTipoComida = require('../controlador/controladorTipoComida');
 
 /* GET home page. */
 
@@ -20,13 +21,6 @@ router.get('/home', function(req, res, next){
 
 
 
-/*router.get('/registrar-carta-por-fecha', function(req, res, next){
-	var datos = {
-		msjFlag : "",
-		msj1    : ""
-	}
-	res.render('registrar-carta-por-fecha', { title: 'Cuentas Delifood', datos});
-});*/
 
 // INICIO - Página "Pedido"
 
@@ -38,9 +32,7 @@ router.get('/home', function(req, res, next){
 	req.fechaActual = fechaActual;
 	//res.render('registrar-pedido', { title: 'Cuentas Delifood', fechaActual: fechaActual }, controladorEntidad.mostrarEntidades);
 });*/
-router.get('/registrar-pedido', controladorEntidad.mostrarTipoEntidades, controladorEntidad.mostrarEntidadesFiltradas);
-
-//router.post('/registrar-pedido', controladorEntidad.mostrarTipoEntidades, controladorEntidad.mostrarEntidadesFiltradas);
+router.get('/registrar-pedido', controladorPedidoAdmin.mostrarCartaDeHoy, controladorEntidad.mostrarTipoEntidades, controladorEntidad.mostrarEntidadesFiltradas);
 
 router.post('/regPedidoAdm', controladorPedidoAdmin.tomarPedido);
 
@@ -49,25 +41,18 @@ router.post('/regPedidoAdm', controladorPedidoAdmin.tomarPedido);
 
 
 
-// INICIO - Página "Almuerzo programado"
+// INICIO - Página Menú "Registros" - "Almuerzo programado"
 
-router.get('/registrar-almuerzo-programado', function(req, res, next){
-	var datos = {
-		msjFlag        : "",
-		msj1           : "",
-		nombreAlmuerzo : ""
-	}
-	res.render('registrar-almuerzo-programado', { title: 'Cuentas Delifood', datos});
-});
+router.get('/registrar-almuerzo-programado', controladorTipoComida.mostrarTipoComida);
 
-router.post('/regAlmuerzoProgramado', controladorAlmuerzoProg.grabarAlmuerzoProg);
+router.post('/regAlmuerzoProgramado', controladorAlmuerzoProg.grabarAlmuerzoProg, controladorTipoComida.mostrarTipoComida);
 
-// FIN - Página "Almuerzo programado"
+// FIN - Página Menú "Registros" - "Almuerzo programado"
 
 
 
 
-// INICIO - Página "Registros" - "Carta de hoy"
+// INICIO - Página Menú "Registros" - "Carta de hoy"
 
 router.get('/registrar-carta-por-fecha', controladorCartaxFecha.mostrarCartaDeHoy, controladorAlmuerzoProg.mostrarTodosAlmuerzoProg);
 
@@ -82,6 +67,6 @@ router.get('/borrar-almuerzo-de-carta-mensaje/:mensaje/:regresar', function(req,
 	res.render('borrar-almuerzo-de-carta-mensaje', { title: 'Cuentas Delifood', mensaje: mensaje, regresar: regresar });
 });
 
-// FIN - Página "Registros" - "Carta de hoy"
+// FIN - Página Menú "Registros" - "Carta de hoy"
 
 module.exports = router;

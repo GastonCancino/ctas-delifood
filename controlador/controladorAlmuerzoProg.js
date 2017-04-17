@@ -1,27 +1,43 @@
 var modeloAlmuerzoProg = require('../modelo/modeloAlmuerzoProg');
+var modeloTipoComida = require('../modelo/modeloTipoComida');
 
 var controlador = function(){};
 
 
 
 
-// INICIO ------------------------------------ para página "Registros" - "Almuerzo programado" ------------------------------------
+// INICIO ------------------------------------ para página "Registros" - "Almuerzo programado" (registrar-almuerzo-programado.ejs) ------------------------------------
 
-controlador.grabarAlmuerzoProg = function(req, res){
+controlador.grabarAlmuerzoProg = function(req, res, next){
 
 	var vnombre_alm_prog = req.body.nombre_alm_prog,
 	vlstid_tipo_comida = req.body.lstid_tipo_comida;
 	vnombre_alm_prog = vnombre_alm_prog.trim();
 
+	var vregistrosTipoComidas;
+
 	if(vnombre_alm_prog == "" || vlstid_tipo_comida == 0){
 
-		var datos = {
-			msjTipo        : "warning",
-			msj1           : "Tiene que ingresar un nombre y seleccionar el tipo.",
-			nombreAlmuerzo : vnombre_alm_prog
-		}
+		// trayendo los tipos de comida, para cuando se regrese con el mensaje de selección.
+		modeloTipoComida.mostrarTipoComida(function(err, registrosTipoComidas){
+			if(err){
+				vregistrosTipoComidas = 'Hubo un error al traer los tipos de comida. 1';
+			} else{
+				vregistrosTipoComidas = registrosTipoComidas;
+			}
 
-		res.render('registrar-almuerzo-programado', { title: 'Cuentas Delifood', datos});
+
+			var datos = {
+				title                  : 'Cuentas Delifood',
+				msjTipo                : "warning",
+				msj1                   : "Tiene que ingresar un nombre y seleccionar el tipo.",
+				nombreAlmuerzo         : vnombre_alm_prog,
+				registrosAllTipoComida : vregistrosTipoComidas
+			}
+
+			res.render('registrar-almuerzo-programado', datos);
+
+		});
 
 	} else{
 
@@ -33,23 +49,41 @@ controlador.grabarAlmuerzoProg = function(req, res){
 		modeloAlmuerzoProg.grabarAlmuerzoProg(registro, function(err){
 			if(err){
 
-				var datos = {
-					msjTipo : "danger",
-					msj1 : "No se pudo grabar, error: " + err,
-					nombreAlmuerzo : ""
-				}
+				// trayendo los tipos de comida, por si hay algun error igual mostrarlos.
+				modeloTipoComida.mostrarTipoComida(function(err2, registrosTipoComidas){
+					if(err2){
+						vregistrosTipoComidas = 'Hubo un error al traer los tipos de comida. 2';
+					} else{
+						vregistrosTipoComidas = registrosTipoComidas;
+					}
 
-				res.render('registrar-almuerzo-programado', { title: 'Cuentas Delifood', datos});
+					var datos = {
+						title                  : 'Cuentas Delifood',
+						msjTipo                : "danger",
+						msj1                   : "No se pudo grabar, error: " + err,
+						nombreAlmuerzo         : vnombre_alm_prog,
+						registrosAllTipoComida : vregistrosTipoComidas
+					}
+
+					res.render('registrar-almuerzo-programado', datos);
+				});
 
 			} else{
 
 				var datos = {
-					msjTipo : "success",
-					msj1 : "Se grabó correctamente.",
-					nombreAlmuerzo : ""
+					title                  : 'Cuentas Delifood',
+					msjTipo                : "success",
+					msj1                   : "Se grabó correctamente.",
+					nombreAlmuerzo         : vnombre_alm_prog,
+					registrosAllTipoComida : []
 				}
 
-				res.render('registrar-almuerzo-programado', { title: 'Cuentas Delifood', datos});
+				// envío por el middleware las variables hacia controladorTipoComida.mostrarTipoComida
+				req.vmsjTipo        = "success";
+				req.vmsj1           = "Se grabó correctamente.";
+				req.vnombreAlmuerzo = vnombre_alm_prog;
+				//res.render('registrar-almuerzo-programado', datos);
+				next();
 			}
 		});
 	}
@@ -57,12 +91,12 @@ controlador.grabarAlmuerzoProg = function(req, res){
 	//res.render('registrar-almuerzo-programado', datos);
 }
 
-// FIN ------------------------------------ para página "Registros" - "Almuerzo programado" ------------------------------------
+// FIN ------------------------------------ para página "Registros" - "Almuerzo programado" (registrar-almuerzo-programado.ejs) ------------------------------------
 
 
 
 
-// INICIO ------------------------------------ para página "Registros" - "Carta de hoy" ------------------------------------
+// INICIO ------------------------------------ para página "Registros" - "Carta de hoy" (registrar-carta-por-fecha.ejs) ------------------------------------
 
 controlador.mostrarTodosAlmuerzoProg = function(req, res){
 
@@ -102,6 +136,6 @@ controlador.mostrarTodosAlmuerzoProg = function(req, res){
 	});
 }
 
-// FIN ------------------------------------ para página "Registros" - "Carta de hoy" ------------------------------------
+// FIN ------------------------------------ para página "Registros" - "Carta de hoy" (registrar-carta-por-fecha.ejs) ------------------------------------
 
 module.exports = controlador;

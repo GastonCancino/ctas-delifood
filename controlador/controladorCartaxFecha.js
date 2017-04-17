@@ -6,7 +6,7 @@ var controlador = function(){};
 
 
 
-// INICIO ------------------------------------ para página "Registros" - "Carta de hoy" ------------------------------------
+// INICIO ------------------------------------ para página Menú "Registros" - "Carta de hoy" (registrar-carta-por-fecha.ejs) ------------------------------------
 
 controlador.mostrarCartaDeHoy = function(req, res, next){
 
@@ -165,6 +165,6 @@ controlador.borrarAlmuerzoDecarta = function(req, res){
 		
 }
 
-// FIN ------------------------------------ para página "Registros" - "Carta de hoy" ------------------------------------
+// FIN ------------------------------------ para página Menú "Registros" - "Carta de hoy" (registrar-carta-por-fecha.ejs) ------------------------------------
 
 module.exports = controlador;

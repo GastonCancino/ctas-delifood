@@ -2,6 +2,59 @@ var modeloPedidoAdmin = require('../modelo/modeloPedidoAdmin');
 
 var controlador = function(){};
 
+
+
+// INICIO ------------------------------------ para página Menú Pedido (registrar-pedido.ejs) ------------------------------------
+
+controlador.mostrarCartaDeHoy = function(req, res, next){
+	var f = new Date();
+	var mes = f.getMonth()+1;
+	var vfechaActualMySQL = f.getFullYear() +"-"+ mes +"-"+ f.getDate();
+
+	modeloPedidoAdmin.mostrarCartaDeHoy(vfechaActualMySQL, function(err, registrosCartaDeHoy){
+		if(err){
+
+			var datos = {
+					msjTipo                   : 'danger',
+					msj1                      : '',
+					msj2                      : 'No se pudo mostrar los platos de la carta de hoy, error: ' + err, 
+					title                     : 'Cuentas Delifood',
+					fechaActual               : '', //req.vfechaActual,
+					registrosAllTipoEntidades : [], //req.registrosAllTipoEntidades,
+					vTipoEntidad              : '', //req.vTipoEntidad,
+					registrosFilEntidades     : [], //req.vregistrosEntidades,
+					registrosCartaDeHoy       : []
+				}
+				console.log("----------> Error");
+				res.render('registrar-pedido', datos);
+
+		} else{
+
+			var vmsj2 = '';
+			if(registrosCartaDeHoy.length < 1){
+				vmsj2 = 'No se encontraron platos para la carta de hoy.';
+			}
+
+			var datos = {
+					msjTipo                   : 'info',
+					msj1                      : '',
+					msj2                      : vmsj2, 
+					title                     : 'Cuentas Delifood',
+					fechaActual               : '', //req.vfechaActual,
+					registrosAllTipoEntidades : [], //req.registrosAllTipoEntidades,
+					vTipoEntidad              : '', //req.vTipoEntidad,
+					registrosFilEntidades     : [], //req.vregistrosEntidades,
+					registrosCartaDeHoy       : registrosCartaDeHoy
+				}
+
+				req.vmsj2 = vmsj2;
+				req.vregistrosCartaDeHoy = registrosCartaDeHoy;
+				next();
+			//res.render('registrar-pedido', datos);
+		}
+	});
+}
+
 controlador.tomarPedido = function(req, res){
 
 	var vmsj1 = "Algo sucedió y no entró al proceso !!";
@@ -19,15 +72,15 @@ controlador.tomarPedido = function(req, res){
 
 	// INICIO - recibiendo datos del formulario
 		var varid_carta_x_fecha  = req.body.id_carta_x_fecha,
-			vartipo_pedido       = req.body.lstTipoPedido,
+			vartipo_entidad       = req.body.lstTipoEntidad,
 			varlstEntidad        = req.body.lstEntidad,
 			varid_alm_prog       = req.body.id_alm_prog;
 			
 
 	if(varid_carta_x_fecha == "" || varid_carta_x_fecha == "undefined"){
 			vmsj1 = "La fecha esta vacía o es indefinida.";
-		}else if(vartipo_pedido == 0){
-			vmsj1 = "No se seleccionó un tipo de pedido.";
+		}else if(vartipo_entidad == 0){
+			vmsj1 = "No se seleccionó el tipo de entidad.";
 		}else if(varlstEntidad == 0){
 			vmsj1 = "No se seleccionó una Empresa o Persona.";
 		}else if(varid_alm_prog == 0 || varid_alm_prog == "undefined"){
@@ -83,7 +136,7 @@ controlador.tomarPedido = function(req, res){
 					if(cantidad != 0 && cantidad != "undefined"){
 						var registro = {
 							id_carta_x_fecha   : varid_carta_x_fechaFormat,
-							tipo_pedido        : vartipo_pedido,
+							tipo_pedido        : vartipo_entidad,
 							id_alm_prog        : idAlmuerzoP,
 							cantidad_pedido    : cantidad,
 							tipo_precio_pedido : vartipo_precio_pedido,

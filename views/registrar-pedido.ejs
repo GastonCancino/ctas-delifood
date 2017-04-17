@@ -19,10 +19,12 @@
 	    	<h3 class="panel-title">Registrar Pedido</h3>
 	 	</div>
 	 	<div class="panel-body">
-<form name="f2" id="f2" action="/registrar-pedido" method="get">
-	<input type="text" name="txtTipoPedido" id="txtTipoPedido" value="<% if(vTipoPedido > 0){ %><%= vTipoPedido %><% } %>">
-	<input type="text" name="txtEntidad" id="txtEntidad">
-</form>
+
+			<form name="f2" id="f2" action="/registrar-pedido" method="get">
+				<input type="text" name="txtTipoEntidad" id="txtTipoEntidad" value="<% if(vTipoEntidad > 0){ %><%= vTipoEntidad %><% } %>">
+				<input type="text" name="txtEntidad" id="txtEntidad">
+			</form>
+
 			<form name="f1" action="regPedidoAdm" method="post">
 			    <div class="form-group">
 			    	<div class="row">
@@ -42,19 +44,19 @@
 			    <div class="form-group">
 			    	<div class="row">
 				    	<div class="col-xs-2">
-				    		<label for="inputdefault">Entidad:</label>
+				    		<label for="inputdefault">Tipo de Entidad:</label>
 				    		
-					    	<select class="form-control" name="lstTipoPedido" id="lstTipoPedido" onchange="document.getElementById('txtTipoPedido').value = document.getElementById('lstTipoPedido').value ;document.getElementById('f2').submit()">
+					    	<select class="form-control" name="lstTipoEntidad" id="lstTipoEntidad" onchange="document.getElementById('txtTipoEntidad').value = document.getElementById('lstTipoEntidad').value; document.getElementById('f2').submit()">
 					    		<option value="0">Seleccione</option>
 					    		<% registrosAllTipoEntidades.forEach(function(registro){ %>
-					    		<option value="<%= registro.id_tipo_ent %>"><%= registro.nombre_tipo_ent %></option>
+					    		<option value="<%= registro.id_tipo_ent %>"<% if(vTipoEntidad == registro.id_tipo_ent){ %> selected<% } %>><%= registro.nombre_tipo_ent %></option>
 					    		<% }) %>
 					    	</select>
 					    	
 				    	</div>
 				    	<div class="col-xs-4">
 				    		<label for="inputdefault">Empresas/Personas</label>
-					    	<select class="form-control" name="lstEntidad" id="lstEntidad">
+					    	<select class="form-control" name="lstEntidad" id="lstEntidad" onchange="document.getElementById('txtEntidad').value = document.getElementById('lstEntidad').value;">
 					    		<option value="0">Seleccione</option>
 					    		<% registrosFilEntidades.forEach(function(registro){ %>
 					    		<option value="<%= registro.id_ent %>"><%= registro.nombre_ent %></option>
@@ -72,10 +74,63 @@
 			    		<th class="text-center" colspan="3">Al Crédito</th>
 			    		<th class="text-center" colspan="3">Al Contado</th>
 			    	</tr>
+
+					<% 
+					if(msj2 != ""){
+					%>
+						<div class="alert alert-<%= msjTipo %>"><%= msj2 %></div>
+					<%
+					}
+
+					var i = 0;
+					
+			    	registrosCartaDeHoy.forEach(function(registro){ 
+			    	 
+			    	i += 1; 
+			    	%>
+					<tr>
+						<!--      GRATIS       -->
+						<td width="300">
+							<input type="hidden" name="id_alm_prog" id="hid_alm_prog<%= registro.id_alm_prog %>" value="<%= registro.id_alm_prog %>">
+							<%= registro.nombre_alm_prog %>
+						</td>
+						<td>
+							<input type="button" class="btn btn-default" name="ralm<%= i %>.1" id="ralm<%= i %>.1" value="-">
+						</td>
+						<td>
+							<input type="hidden" name="hcantidad_pedido<%= registro.id_alm_prog %>" id="halm<%= i %>.a">
+			    			<input type="text" class="form-control" style="width: 50px !important;" name="alm<%= i %>.a" id="alm<%= i %>.a" size="1" disabled>
+						</td>
+						<td>
+							<input type="button" class="btn btn-default" name="salm<%= i %>.2" id="salm<%= i %>.2" value="+"></td>
+						</td>
+
+						<!--      AL CREDITO       -->
+						<td><input type="button" class="btn btn-default" name="ralm<%= i %>.2" id="ralm<%= i %>.2" value="-"></td>
+			    		<td>
+			    			<input type="hidden" name="hcantidad_pedido<%= registro.id_alm_prog %>" id="halm<%= i %>.b">
+			    			<input type="text" class="form-control" style="width: 50px !important;" name="alm<%= i %>.b" id="alm<%= i %>.b" size="3" disabled>
+			    		</td>
+			    		<td><input type="button" class="btn btn-default" name="salm<%= i %>.2" id="salm<%= i %>.2" value="+"></td>
+
+
+						<!--      AL CONTADO       -->
+						<td><input type="button" class="btn btn-default" name="ralm<%= i %>.3" id="ralm<%= i %>.3" value="-"></td>
+			    		<td>
+			    			<input type="hidden" name="hcantidad_pedido<%= registro.id_alm_prog %>" id="halm<%= i %>.c">
+			    			<input type="text" class="form-control" style="width: 50px !important;" name="alm<%= i %>.c" id="alm<%= i %>.c" size="3" disabled>
+			    		</td>
+			    		<td><input type="button" class="btn btn-default" name="salm<%= i %>.3" id="salm<%= i %>.3" value="+"></td>
+					</tr>
+			    	<% }) %>
+
+
+
+			<!--
 			    	<tr>
 			    		<td width="300">
 			    			<input type="hidden" name="id_alm_prog" id="hid_alm_prog1" value="1">
-			    			Arroz adobo de pollo con camote o papa
+			    			Arroz adobo de pollo con camote o papa..
 			    		</td>
 			    		<td><input type="button" class="btn btn-default" name="ralm1" id="ralm1" value="-"></td>
 			    		<td>
@@ -179,6 +234,7 @@
 			    			<input type="text" class="form-control" style="width: 50px !important;" name="alm112" id="alm112" size="3" disabled></td>
 			    		<td><input type="button" class="btn btn-default" name="salm112" id="salm112" value="+"></td>
 			    	</tr>
+			-->
 			    </table>
 
 

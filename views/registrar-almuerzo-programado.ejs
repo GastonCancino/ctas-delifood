@@ -19,8 +19,8 @@
 
       <div class="panel-body">
 
-        <% if(datos.msj1 != ""){ %>
-        <div class="alert alert-<%= datos.msjTipo %>"><%= datos.msj1 %></div>
+        <% if(msj1 != ""){ %>
+        <div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
         <% } %>
 
         <form name="f1" action="regAlmuerzoProgramado" method="post">
@@ -28,16 +28,15 @@
             <div class="row">
               <div class="col-xs-4">
                 <label for="inputdefault">Nombre del Almuerzo:</label>
-                <input type="text" name="nombre_alm_prog" id="nombre_alm_prog" class="form-control" value="<% if(datos.nombreAlmuerzo != ''){ %><%= datos.nombreAlmuerzo %><% } %>">
+                <input type="text" name="nombre_alm_prog" id="nombre_alm_prog" class="form-control" value="<% if(nombreAlmuerzo != ''){ %><%= nombreAlmuerzo %><% } %>">
               </div>
               <div class="col-xs-4">
                 <label for="inputdefault">En qué tipo se registrará?</label>
                 <select name="lstid_tipo_comida" id="lstid_tipo_comida" class="form-control">
                   <option value="0">Seleccionar</option>
-                  <option value="1">Almuerzos programados</option>
-                  <option value="2">Los infaltables</option>
-                  <option value="3">Ensaladas personalizadas</option>
-                  <option value="4">Postres</option>
+                  <% registrosAllTipoComida.forEach(function(registro){ %>
+                  <option value="<%= registro.id_tipo_comida %>"><%= registro.nombre_tipo_comida %></option>
+                  <% }) %>
                 </select>
               </div>
             </div>
