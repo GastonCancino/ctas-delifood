@@ -6,8 +6,9 @@ var controladorAlmuerzoProg = require('../controlador/controladorAlmuerzoProg');
 var controladorCartaxFecha = require('../controlador/controladorCartaxFecha');
 var controladorEntidad = require('../controlador/controladorEntidad');
 var controladorTipoComida = require('../controlador/controladorTipoComida');
-var controladorExportToExcelView = require('../controlador/controladorExportToExcelView');
-var controladorExportToExcel = require('../controlador/controladorExportToExcel');
+var controladorReportesFiltros = require('../controlador/controladorReportesFiltros');
+var controladorReportePedidosXLSX = require('../controlador/controladorReportePedidosXLSX');
+var controladorReporteMasVotadosXLSX = require('../controlador/controladorReporteMasVotadosXLSX');
 
 /* GET home page. */
 
@@ -73,10 +74,18 @@ router.get('/borrar-almuerzo-de-carta-mensaje/:mensaje/:regresar', function(req,
 
 
 // INICIO - Página Menú "Reportes" - "Pedidos"
-router.get('/exportar-excel-view-filtros', controladorExportToExcelView.vistaFiltros);
+router.get('/reporte-pedidos-filtros', controladorReportesFiltros.vistaPedidosFiltros);
 
-router.post('/exportToExcel', controladorExportToExcel.exportarExcel)
+router.post('/reportePedidosExportToExcel', controladorReportePedidosXLSX.exportarExcel);
 // FIN - Página Menú "Reportes" - "Pedidos"
+
+
+
+// INICIO - Página Menú "Reportes" - "Los más votados"
+router.get('/reporte-los-mas-votados-filtros', controladorReportesFiltros.vistaMasVotadosFiltros);
+
+router.post('/reporteLosMasVotadosExportToExcel', controladorReporteMasVotadosXLSX.exportarExcel);
+// FIN - Página Menú "Reportes" - "Los más votados"
 
 
 module.exports = router;

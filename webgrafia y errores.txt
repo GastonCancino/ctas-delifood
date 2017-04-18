@@ -1,4 +1,4 @@
-Uso de placeholders (paso de parametros por url):
+﻿Uso de placeholders (paso de parametros por url):
 -------------------------------------------------
 http://www.nodehispano.com/2012/06/manejo-de-rutas-con-express-framework-para-nodejs/
 http://mycyberacademy.com/mi-primera-aplicacion-con-express-js-iii-las-rutas/
@@ -11,11 +11,22 @@ https://www.npmjs.com/package/node-excel-export
 	npm install node-excel-export -g --save
 
 	
-	------------ !!! ERROR !!! -------------
+	------------------------------------------------------------------------------------------------------
+	-------------------------------------- !!! ERROR !!! -------------------------------------------------
+	------------------------------------------------------------------------------------------------------
 	Error: "Block-scoped declarations (let, const, function, class) not yet supported outside strict mode"
 	Solución:
 	en el archivo que esta en node_modules\node-excel-export\index.js
 	se tuvo que agregar "use strict"; (con todo y comillas) en la primera línea 
 	del archivo, esto para evitar el error 
+
+otro enlace https://github.com/andreyan-andreev/node-excel-export
+
+
+Colores excel:
+--------------
+	https://github.com/closedxml/closedxml/wiki/Excel-Indexed-Colors
 	
-	
+Estilos excel:
+--------------
+	https://www.npmjs.com/package/xlsx-style

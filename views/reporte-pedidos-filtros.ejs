@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="javascripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/pedido.js"></script>
+  </head>
+   <body>
+   	<!-- barra de navegacion con bootstrap, estatica en la parte superior -->
+  	<%- include('commons/nav-bar'); %>
+
+  	<!-- panel -->
+	<br>
+	<div class="panel panel-primary">
+	 	<div class="panel-heading">
+	    	<h3 class="panel-title">Exportar para las fechas</h3>
+	 	</div>
+	 	<div class="panel-body">
+
+	 		<% if(msj1 != ""){ %>
+        	<div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
+        	<% } %>
+
+			<div class="container-fluid">
+	 			
+				<form name="f1" action="reportePedidosExportToExcel" method="post">
+			    	<div class="form-group">
+			    		<div class="row">
+				    		<div class="col-xs-2">
+				    			<select class="form-control" name="lstFechaInicio" id="lstFechaInicio">
+					    		<option value="0">Seleccione</option>
+					    		<option value="2017-04-17">2017-04-17</option>
+					    		</select>
+				    		</div>
+				    	</div>
+			    	</div>
+			    	<div class="form-group">
+			    		<input type="button" class="btn btn-primary" onclick="document.f1.submit();" value="Exportar">
+			    	</div>
+			    </form>
+
+			</div>
+		</div>
+	</div>
+	<!--fin panel-->
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	</body>
+</html>
