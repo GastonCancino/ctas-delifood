@@ -25,7 +25,7 @@ controlador.mostrarCartaDeHoy = function(req, res, next){
 					registrosFilEntidades     : [], //req.vregistrosEntidades,
 					registrosCartaDeHoy       : []
 				}
-				console.log("----------> Error");
+
 				res.render('registrar-pedido', datos);
 
 		} else{
@@ -57,6 +57,7 @@ controlador.mostrarCartaDeHoy = function(req, res, next){
 
 controlador.tomarPedido = function(req, res){
 
+	var msjTipo = "danger";
 	var vmsj1 = "Algo sucedió y no entró al proceso !!";
 	var flagCant = "";
 
@@ -138,6 +139,7 @@ controlador.tomarPedido = function(req, res){
 							id_carta_x_fecha   : varid_carta_x_fechaFormat,
 							tipo_pedido        : vartipo_entidad,
 							id_alm_prog        : idAlmuerzoP,
+							id_ent             : varlstEntidad,
 							cantidad_pedido    : cantidad,
 							tipo_precio_pedido : vartipo_precio_pedido,
 							fecha_reg_pedido   : fechaActualMySQL
@@ -155,7 +157,9 @@ controlador.tomarPedido = function(req, res){
 										//msj1: "No se pudo grabar el INSERT " + j + " del almuerzo " + idAlmuerzoP + ", error: " + err,
 										//msj2: JSON.stringify(req.body, null, 2)
 									//};
+									msjTipo = "danger";
 									vmsj1 = "No se pudo grabar el INSERT " + j + " del almuerzo " + idAlmuerzoP + ", error: " + err;
+
 
 									// no se puede poner un res.render dentro de un bucle:
 									//res.render('ver-pedido-recuperado', datos);
@@ -167,16 +171,20 @@ controlador.tomarPedido = function(req, res){
 										//msj1: "El pedido se registró correctamente.",
 										//msj2: JSON.stringify(req.body, null, 2)
 									//};
+									msjTipo = "success";
 									vmsj1 = "Se grabó correctamente.";
 
 									// no se puede poner un res.render dentro de un bucle:
 									//res.render('ver-pedido-recuperado', datos);
+
 								}
 						});
 					}else{
 						if(flagCant != "ok"){
+							msjTipo = "info";
 							vmsj1 = "No se indicó ninguna cantidad para ningún almuerzo, por lo tanto no se registró nada.";
 						}
+
 					}
 
 				} //  for(   for par acantidades.
@@ -187,13 +195,17 @@ controlador.tomarPedido = function(req, res){
 
 	} //  if(...    validaciones antes de empezar el proceso.
 
+	if(msjTipo == ""){msjTipo="success";};
 	if(vmsj1 == ""){vmsj1="Se grabó correctamente.";}
+
 	var datos = {
-		msj1: vmsj1,
-		msj2: JSON.stringify(req.body, null, 2)
+		title   : 'Cuentas Delifood',
+		msjTipo : msjTipo,
+		msj1    : vmsj1,
+		msj2    : JSON.stringify(req.body, null, 2)
 	};
 
-	res.render('ver-pedido-recuperado', datos);
+	res.render('ver-resultado-grabar-pedido', datos); //res.render('ver-pedido-recuperado', datos);
 }
 
 module.exports = controlador;

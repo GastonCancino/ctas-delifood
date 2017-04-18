@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="javascripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/pedido.js"></script>
+  </head>
+   <body>
+   	<!-- barra de navegacion con bootstrap, estatica en la parte superior -->
+  	<%- include('commons/nav-bar'); %>
+
+  	<!-- panel -->
+	<br>
+	<div class="panel panel-primary">
+	 	<div class="panel-heading">
+	    	<h3 class="panel-title">Registrar Pedido</h3>
+	 	</div>
+	 	<div class="panel-body">
+
+			<div class="container-fluid">
+	 			<div class="row">
+	 				
+		 				<div class="col-xs-12">
+		 					<% if(msj1 != ""){ %>
+		 					<div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
+		 					<% } %>
+
+							<!--<hr>-->
+							<%= /* msj2 */ %>
+		 				</div>
+
+	 			</div>
+
+	 			<div class="row">
+
+	 				<div class="col-md-6 col-md-offset-3 text-center">
+	 					<a href="registrar-pedido" class="btn btn-primary btn-lg">Nuevo Pedido</a>
+	 				</div>
+
+	 			</div>
+
+   				<div class="span2 offset4" style="height: 70px;"></div>
+
+	 			<div class="row">
+
+	 				<div class="col-md-6 col-md-offset-3 text-center">
+	 					<a href="javascript:history.back(1)" class="btn btn-default">Regresar para volver a ver el pedido</a>
+	 				</div>
+
+	 			</div>
+			</div>
+		</div>
+	</div>
+	<!--fin panel-->
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	</body>
+</html>

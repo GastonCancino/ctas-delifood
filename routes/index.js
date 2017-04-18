@@ -6,6 +6,8 @@ var controladorAlmuerzoProg = require('../controlador/controladorAlmuerzoProg');
 var controladorCartaxFecha = require('../controlador/controladorCartaxFecha');
 var controladorEntidad = require('../controlador/controladorEntidad');
 var controladorTipoComida = require('../controlador/controladorTipoComida');
+var controladorExportToExcelView = require('../controlador/controladorExportToExcelView');
+var controladorExportToExcel = require('../controlador/controladorExportToExcel');
 
 /* GET home page. */
 
@@ -68,5 +70,13 @@ router.get('/borrar-almuerzo-de-carta-mensaje/:mensaje/:regresar', function(req,
 });
 
 // FIN - Página Menú "Registros" - "Carta de hoy"
+
+
+// INICIO - Página Menú "Reportes" - "Pedidos"
+router.get('/exportar-excel-view-filtros', controladorExportToExcelView.vistaFiltros);
+
+router.post('/exportToExcel', controladorExportToExcel.exportarExcel)
+// FIN - Página Menú "Reportes" - "Pedidos"
+
 
 module.exports = router;

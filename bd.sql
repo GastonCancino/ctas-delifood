@@ -41,6 +41,7 @@ CREATE TABLE `pedido` (
   `id_pedido` INT(15) NOT NULL AUTO_INCREMENT COMMENT 'ID del pedido',
   `id_carta_x_fecha` DATE NOT NULL COMMENT 'ID de la carta por fecha',
   `id_alm_prog` INT(10) NOT NULL COMMENT 'ID almuerzo programado',
+  `id_ent` int(4) NOT NULL COMMENT 'ID entidad',
   `tipo_pedido` VARCHAR(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Tipo de pedido hecho por Admin, por clientes desde Web o App',
   `cantidad_pedido` INT(5) NOT NULL COMMENT 'Cantidad de pedidos por almuerzo',
   `tipo_precio_pedido` VARCHAR(20) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Tipo de precio(GRATIS, AL CREDITO, AL CONTADO)',

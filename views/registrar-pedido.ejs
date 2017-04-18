@@ -21,8 +21,8 @@
 	 	<div class="panel-body">
 
 			<form name="f2" id="f2" action="/registrar-pedido" method="get">
-				<input type="text" name="txtTipoEntidad" id="txtTipoEntidad" value="<% if(vTipoEntidad > 0){ %><%= vTipoEntidad %><% } %>">
-				<input type="text" name="txtEntidad" id="txtEntidad">
+				<input type="hidden" name="txtTipoEntidad" id="txtTipoEntidad" value="<% if(vTipoEntidad > 0){ %><%= vTipoEntidad %><% } %>">
+				<input type="hidden" name="txtEntidad" id="txtEntidad">
 			</form>
 
 			<form name="f1" action="regPedidoAdm" method="post">
@@ -67,27 +67,56 @@
 			    </div>
 
 
-			    <table class="table table-striped">
-			    	<tr>
-			    		<th>Plato</th>
-			    		<th class="text-center" colspan="3">Gratis</th>
-			    		<th class="text-center" colspan="3">Al Crédito</th>
-			    		<th class="text-center" colspan="3">Al Contado</th>
-			    	</tr>
-
-					<% 
+				<% 
 					if(msj2 != ""){
-					%>
+				%>
 						<div class="alert alert-<%= msjTipo %>"><%= msj2 %></div>
-					<%
+				<%
 					}
+				%>
 
+				
+				<table class="table table-striped">
+
+					<%
 					var i = 0;
+					var tipo = 0;
 					
 			    	registrosCartaDeHoy.forEach(function(registro){ 
 			    	 
-			    	i += 1; 
+			    	i += 1;
+
 			    	%>
+
+					<% 
+					if(tipo == 0 || tipo != registro.id_tipo_comida){
+						tipo = registro.id_tipo_comida;
+					%>
+
+						<!-- para que haga una linea en blanco antes de imprimir un nuevo tipo de comida (los infaltables, ensaladas o postres) excepto la primera vez -->
+						<% if(i > 1){ %>
+						<tr>
+							<td colspan="10">&nbsp;</td>
+						</tr>
+						<% } %>
+
+						<tr>
+							<td colspan="10">
+								<div class="bg-primary" style="padding: 15px;"><%= registro.nombre_tipo_comida %></div>
+							</td>
+						</tr>
+						
+				    	<tr>
+				    		<th>Plato</th>
+				    		<th class="text-center" colspan="3">Gratis</th>
+				    		<th class="text-center" colspan="3">Al Crédito</th>
+				    		<th class="text-center" colspan="3">Al Contado</th>
+				    	</tr>
+
+			    	<%
+					}
+			    	%>
+
 					<tr>
 						<!--      GRATIS       -->
 						<td width="300">
@@ -95,33 +124,34 @@
 							<%= registro.nombre_alm_prog %>
 						</td>
 						<td>
-							<input type="button" class="btn btn-default" name="ralm<%= i %>.1" id="ralm<%= i %>.1" value="-">
+							<input type="button" class="btn btn-default" name="ralm<%= i %>_1" id="ralm<%= i %>_1" value="-">
 						</td>
 						<td>
-							<input type="hidden" name="hcantidad_pedido<%= registro.id_alm_prog %>" id="halm<%= i %>.a">
-			    			<input type="text" class="form-control" style="width: 50px !important;" name="alm<%= i %>.a" id="alm<%= i %>.a" size="1" disabled>
+							<input type="hidden" name="hcantidad_pedido<%= registro.id_alm_prog %>" id="halm<%= i %>_1">
+			    			<input type="text" class="form-control" style="width: 50px !important;" name="alm<%= i %>_1" id="alm<%= i %>_1" size="1" disabled>
 						</td>
 						<td>
-							<input type="button" class="btn btn-default" name="salm<%= i %>.2" id="salm<%= i %>.2" value="+"></td>
+							<input type="button" class="btn btn-default" name="salm<%= i %>_1" id="salm<%= i %>_1" value="+"></td>
 						</td>
 
 						<!--      AL CREDITO       -->
-						<td><input type="button" class="btn btn-default" name="ralm<%= i %>.2" id="ralm<%= i %>.2" value="-"></td>
+						<td><input type="button" class="btn btn-default" name="ralm<%= i %>_2" id="ralm<%= i %>_2" value="-"></td>
 			    		<td>
-			    			<input type="hidden" name="hcantidad_pedido<%= registro.id_alm_prog %>" id="halm<%= i %>.b">
-			    			<input type="text" class="form-control" style="width: 50px !important;" name="alm<%= i %>.b" id="alm<%= i %>.b" size="3" disabled>
+			    			<input type="hidden" name="hcantidad_pedido<%= registro.id_alm_prog %>" id="halm<%= i %>_2">
+			    			<input type="text" class="form-control" style="width: 50px !important;" name="alm<%= i %>_2" id="alm<%= i %>_2" size="3" disabled>
 			    		</td>
-			    		<td><input type="button" class="btn btn-default" name="salm<%= i %>.2" id="salm<%= i %>.2" value="+"></td>
+			    		<td><input type="button" class="btn btn-default" name="salm<%= i %>_2" id="salm<%= i %>_2" value="+"></td>
 
 
 						<!--      AL CONTADO       -->
-						<td><input type="button" class="btn btn-default" name="ralm<%= i %>.3" id="ralm<%= i %>.3" value="-"></td>
+						<td><input type="button" class="btn btn-default" name="ralm<%= i %>_3" id="ralm<%= i %>_3" value="-"></td>
 			    		<td>
-			    			<input type="hidden" name="hcantidad_pedido<%= registro.id_alm_prog %>" id="halm<%= i %>.c">
-			    			<input type="text" class="form-control" style="width: 50px !important;" name="alm<%= i %>.c" id="alm<%= i %>.c" size="3" disabled>
+			    			<input type="hidden" name="hcantidad_pedido<%= registro.id_alm_prog %>" id="halm<%= i %>_3">
+			    			<input type="text" class="form-control" style="width: 50px !important;" name="alm<%= i %>_3" id="alm<%= i %>_3" size="3" disabled>
 			    		</td>
-			    		<td><input type="button" class="btn btn-default" name="salm<%= i %>.3" id="salm<%= i %>.3" value="+"></td>
+			    		<td><input type="button" class="btn btn-default" name="salm<%= i %>_3" id="salm<%= i %>_3" value="+"></td>
 					</tr>
+
 			    	<% }) %>
 
 
@@ -235,11 +265,9 @@
 			    		<td><input type="button" class="btn btn-default" name="salm112" id="salm112" value="+"></td>
 			    	</tr>
 			-->
-			    </table>
+				</table>
 
-
-
-	    		<input type="button" class="btn btn-primary" onclick="document.f1.submit();" value="Grabar">
+				<input type="button" class="btn btn-primary" onclick="document.f1.submit();" value="Grabar">
 			</form>
 		</div>
 	</div>
