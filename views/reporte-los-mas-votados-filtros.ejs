@@ -4,8 +4,11 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="javascripts/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="/javascripts/pedido.js"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap-datetimepicker-4.17.37.min.css" />
+    <script src="javascripts/jquery-2.2.4.min.js"></script>
+    <script src="javascripts/moment-2.10.6.min.js"></script>
+    <script src="javascripts/moment-with-locales.js"></script>
+    <script src="javascripts/bootstrap-datetimepicker-4.17.37.min.js"></script>
   </head>
    <body>
    	<!-- barra de navegacion con bootstrap, estatica en la parte superior -->
@@ -15,7 +18,7 @@
 	<br>
 	<div class="panel panel-primary">
 	 	<div class="panel-heading">
-	    	<h3 class="panel-title">Exportar para las fechas</h3>
+	    	<h3 class="panel-title">Exportar reporte de los platos más votados para las fechas</h3>
 	 	</div>
 	 	<div class="panel-body">
 
@@ -28,17 +31,23 @@
 				<form name="f1" action="reporteLosMasVotadosExportToExcel" method="post">
 			    	<div class="form-group">
 			    		<div class="row">
-				    		<div class="col-xs-2">
-				    			<select class="form-control" name="lstFechaInicio" id="lstFechaInicio">
-					    		<option value="0">Seleccione</option>
-					    		<option value="2017-04-17">2017-04-14</option>
-					    		</select>
+				    		<div class="col-xs-3">
+				    			<label for="inputdefault">Desde</label>
+				    			<div class='input-group date' id='datetimepicker1'>
+				                    <input type='text' class="form-control" name="lstFechaInicio" id="lstFechaInicio" />
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
 				    		</div>
-				    		<div class="col-xs-2">
-				    			<select class="form-control" name="lstFechaFin" id="lstFechaFin">
-					    		<option value="0">Seleccione</option>
-					    		<option value="2017-04-17">2017-04-18</option>
-					    		</select>
+				    		<div class="col-xs-3">
+				    			<label for="inputdefault">Hasta</label>
+					    		<div class='input-group date' id='datetimepicker2' >
+				                    <input type='text' class="form-control" name="lstFechaFin" id="lstFechaFin" />
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
 				    		</div>
 				    	</div>
 			    	</div>
@@ -52,5 +61,73 @@
 	</div>
 	<!--fin panel-->
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+            	format: 'YYYY-MM-DD',
+            	locale: 'es'/*,
+            	tooltips: {
+		            today: 'Revenir à aujourd\'hui',
+		            clear: 'Effacer la sélection',
+		            close: 'Fermer',
+		            selectMonth: 'Sélectionner le mois',
+		            prevMonth: 'Mois précédent',
+		            nextMonth: 'Mois suivant',
+		            selectYear: 'Sélectionner l\'année',
+		            prevYear: 'Année précédente',
+		            nextYear: 'Année suivante',
+		            selectDecade: 'Sélectionner la décénnie',
+		            prevDecade: 'Décénnie précédente',
+		            nextDecade: 'Décennie suivante',
+		            prevCentury: 'Siècle précédent',
+		            nextCentury: 'Siècle suivant'
+		        }*/
+
+		        /*
+		        longDateFormat : {
+				        LT : 'H:mm',
+				        LTS : 'H:mm:ss',
+				        L : 'DD/MM/YYYY',
+				        LL : 'D [de] MMMM [de] YYYY',
+				        LLL : 'D [de] MMMM [de] YYYY H:mm',
+				        LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
+				},
+				*/
+            });
+
+            $('#datetimepicker2').datetimepicker({
+            	format: 'YYYY-MM-DD',
+            	locale: 'es'/*,
+            	tooltips: {
+		            today: 'Revenir à aujourd\'hui',
+		            clear: 'Effacer la sélection',
+		            close: 'Fermer',
+		            selectMonth: 'Sélectionner le mois',
+		            prevMonth: 'Mois précédent',
+		            nextMonth: 'Mois suivant',
+		            selectYear: 'Sélectionner l\'année',
+		            prevYear: 'Année précédente',
+		            nextYear: 'Année suivante',
+		            selectDecade: 'Sélectionner la décénnie',
+		            prevDecade: 'Décénnie précédente',
+		            nextDecade: 'Décennie suivante',
+		            prevCentury: 'Siècle précédent',
+		            nextCentury: 'Siècle suivant'
+		        }*/
+
+		        /*
+		        longDateFormat : {
+				        LT : 'H:mm',
+				        LTS : 'H:mm:ss',
+				        L : 'DD/MM/YYYY',
+				        LL : 'D [de] MMMM [de] YYYY',
+				        LLL : 'D [de] MMMM [de] YYYY H:mm',
+				        LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
+				},
+				*/
+            });
+            
+        });
+    </script>
 	</body>
 </html>

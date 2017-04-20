@@ -20,6 +20,16 @@ router.get('/home', function(req, res, next){
 	res.render('index', { title: 'Cuentas Delifood' });
 });
 
+router.get('/prueba', function(req, res, next){
+	var miAuto = new Object();
+	miAuto.marca = "Ford";
+	miAuto.modelo = "Mustang";
+	miAuto.anio = 1969;
+
+	console.log(miAuto);
+
+	res.render('index', { title: 'Cuentas Delifood' });
+});
 
 
 

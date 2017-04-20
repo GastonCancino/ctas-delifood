@@ -16,17 +16,30 @@ https://www.npmjs.com/package/node-excel-export
 	------------------------------------------------------------------------------------------------------
 	Error: "Block-scoped declarations (let, const, function, class) not yet supported outside strict mode"
 	Solución:
-	en el archivo que esta en node_modules\node-excel-export\index.js
+	en el archivo que esta en [tu carpeta de proyecto]\node_modules\node-excel-export\index.js
 	se tuvo que agregar "use strict"; (con todo y comillas) en la primera línea 
-	del archivo, esto para evitar el error 
+	del archivo, esto para evitar el error. 
 
 otro enlace https://github.com/andreyan-andreev/node-excel-export
+
+Estilos excel NodeJS:
+---------------------
+	https://www.npmjs.com/package/xlsx-style
 
 
 Colores excel:
 --------------
 	https://github.com/closedxml/closedxml/wiki/Excel-Indexed-Colors
-	
-Estilos excel:
---------------
-	https://www.npmjs.com/package/xlsx-style
+
+Javascript trabajando con objetos:
+----------------------------------
+	https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Trabajando_con_objectos
+
+Javascript crear un array de objetos (me sirvio para crear el excel extrayendo los datos base de datos):
+--------------------------------------------------------------------------------------------------------
+	http://informaticapc.com/tutorial-javascript/objetos.php
+
+
+Bootstrap DatePicker para seleccionar fecha:
+--------------------------------------------
+	https://eonasdan.github.io/bootstrap-datetimepicker/
