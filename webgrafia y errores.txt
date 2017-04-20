@@ -22,8 +22,8 @@ https://www.npmjs.com/package/node-excel-export
 
 otro enlace https://github.com/andreyan-andreev/node-excel-export
 
-Estilos excel NodeJS:
----------------------
+Estilos y Formatos excel NodeJS:
+--------------------------------
 	https://www.npmjs.com/package/xlsx-style
 
 

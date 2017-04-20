@@ -21,12 +21,16 @@ router.get('/home', function(req, res, next){
 });
 
 router.get('/prueba', function(req, res, next){
-	var miAuto = new Object();
+	/*var miAuto = new Object();
 	miAuto.marca = "Ford";
 	miAuto.modelo = "Mustang";
 	miAuto.anio = 1969;
 
-	console.log(miAuto);
+	console.log(miAuto);*/
+
+	var meses = new Object();
+	var meses = {"0": "Nada", "01": "Enero", "02": "Febrero", "03": "Marzo", "04": "Abril", "05": "Mayo", "06": "Junio", "07": "Julio", "08": "Agosto", "09": "Septiembre", "10": "Octubre", "11": "Noviembre", "12": "Diciembre"};
+	console.log(meses["03"]);
 
 	res.render('index', { title: 'Cuentas Delifood' });
 });
