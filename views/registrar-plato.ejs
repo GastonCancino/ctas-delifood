@@ -10,16 +10,16 @@
     <!-- barra de navegacion con bootstrap, estatica en la parte superior -->
     <%- include('commons/nav-bar'); %>
 
-    <!--panel-->
+    <!--panel 1-->
     <br>
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Registrar Almuerzo</h3>
+        <h3 class="panel-title">Registrar Platos</h3>
       </div>
 
       <div class="panel-body">
 
-        <% if(msj1 != ""){ %>
+        <% if(msj1 != "" && msj1 != undefined){ %>
         <div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
         <% } %>
 
@@ -27,7 +27,7 @@
           <div class="form-group">
             <div class="row">
               <div class="col-xs-4">
-                <label for="inputdefault">Nombre del Almuerzo:</label>
+                <label for="inputdefault">Nombre del Plato:</label>
                 <input type="text" name="nombre_alm_prog" id="nombre_alm_prog" class="form-control" value="<% if(nombreAlmuerzo != ''){ %><%= nombreAlmuerzo %><% } %>">
               </div>
               <div class="col-xs-4">
@@ -48,7 +48,38 @@
       </div>
 
     </div>
-    <!--fin panel-->
+    <!--fin panel 1-->
+
+    <!--panel 2-->
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Platos</h3>
+      </div>
+
+      <div class="panel-body">
+          <% if(msj2 != "" && msj2 != undefined){ %>
+          <div class="alert alert-<%= msjTipo2 %>"><%= msj2 %></div>
+          <% } %>
+
+          <table class="table table-striped">
+              <tr>
+                  <th>Tipo de Comida</th>
+                  <th>Nombre del Plato</th>
+              </tr>
+
+              <% registrosAllAlmuerzos.forEach(function(registro){ %>
+
+              <tr>
+                <td><%= registro.nombre_tipo_comida %></td>
+                <td><%= registro.nombre_alm_prog %></td>
+              </tr>
+
+              <% }) %>
+          </table>
+      </div>
+      
+    </div>
+    <!--fin panel 2-->
 
 
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

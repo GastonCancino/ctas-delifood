@@ -1,4 +1,5 @@
 var modeloTipoComida = require('../modelo/modeloTipoComida');
+//var modeloAlmuerzoProg = require('../modelo/modeloAlmuerzoProg');
 
 controlador = function(){};
 
@@ -7,21 +8,22 @@ controlador = function(){};
 
 // INICIO ------------------------------------  para página Menú "Registros" - "Almuerzo Programado" (registrar-almuerzo-programado) ------------------------------------
 
-controlador.mostrarTipoComida = function(req, res){
+controlador.mostrarTipoComida = function(req, res, next){
 
 	// recupero las variables enviadas por el middleware desde controladorAlmuerzoProg.grabarAlmuerzoProg
 	var vmsjTipo        = req.vmsjTipo;
 	var vmsj1           = req.vmsj1;
 	var vnombreAlmuerzo = req.vnombreAlmuerzo;
+	if(vnombreAlmuerzo == undefined){vnombreAlmuerzo = ''};
 
 	modeloTipoComida.mostrarTipoComida(function(err, registrosTipoComidas){
 		if(err){
 
-			if(vmsjTipo == ''){
+			if(vmsjTipo == '' || vmsjTipo == undefined){
 				vmsjTipo = 'danger';
 			}
 
-			if(vmsj1 == ''){
+			if(vmsj1 == '' || vmsj1 == undefined){
 				vmsj1 = 'No se pudieron mostrar los tipos de comida, error: ' + err;
 			};
 
@@ -29,11 +31,14 @@ controlador.mostrarTipoComida = function(req, res){
 				title                  : 'Cuentas Delifood',
 				msjTipo                : vmsjTipo,
 				msj1                   : vmsj1,
+				msjTipo2               : '',
+				msj2                   : '',
 				nombreAlmuerzo         : vnombreAlmuerzo,
-				registrosAllTipoComida : []
+				registrosAllTipoComida : [],
+				registrosAllAlmuerzos  : []
 			}
 
-			res.render('registrar-almuerzo-programado', datos);
+			res.render('registrar-plato', datos);
 
 		} else{
 
@@ -51,15 +56,65 @@ controlador.mostrarTipoComida = function(req, res){
 				title                  : 'Cuentas Delifood',
 				msjTipo                : vmsjTipo,
 				msj1                   : vmsj1,
+				msjTipo2               : '',
+				msj2                   : '',
 				nombreAlmuerzo         : vnombreAlmuerzo,
-				registrosAllTipoComida : registrosTipoComidas
+				registrosAllTipoComida : registrosTipoComidas,
+				registrosAllAlmuerzos  : []
 			}
 
-			res.render('registrar-almuerzo-programado', datos);
+			req.vmsjTipo = vmsjTipo;
+			req.vmsj1 = vmsj1;
+			req.vnombreAlmuerzo = vnombreAlmuerzo;
+			req.vregistrosTipoComidas = registrosTipoComidas;
+			next();
+			//res.render('registrar-plato', datos);
+
+			//mostrarPlatos(res, vmsjTipo, vmsj1, vnombreAlmuerzo, registrosTipoComidas); // evitar usar middleware con una función
+
 		}
 
 	});
+
+
 };
+
+
+// evitar usar middleware con una función
+
+/*function mostrarPlatos(res, vmsjTipo, vmsj1, vnombreAlmuerzo, registrosTipoComidas){
+
+	modeloAlmuerzoProg.mostrarTodosAlmuerzoProg(function(err, registrosTodosAlmuerzoProg){
+		if(err){
+
+			var datos = {
+				title                  : 'Cuentas Delifood',
+				msjTipo                : vmsjTipo,
+				msj1                   : vmsj1,
+				msj2                   : '',
+				nombreAlmuerzo         : vnombreAlmuerzo,
+				registrosAllTipoComida : registrosTipoComidas,
+				registrosAllAlmuerzos  : registrosTodosAlmuerzoProg
+			}
+
+			res.render('registrar-plato', datos);
+
+		} else{
+
+			var datos = {
+				title                  : 'Cuentas Delifood',
+				msjTipo                : vmsjTipo,
+				msj1                   : vmsj1,
+				msj2                   : '',
+				nombreAlmuerzo         : vnombreAlmuerzo,
+				registrosAllTipoComida : registrosTipoComidas,
+				registrosAllAlmuerzos  : registrosTodosAlmuerzoProg
+			}
+
+			res.render('registrar-plato', datos);
+		}
+	});
+}*/
 
 // FIN ------------------------------------  para página Menú "Registros" - "Almuerzo Programado" (registrar-almuerzo-programado) ------------------------------------
 

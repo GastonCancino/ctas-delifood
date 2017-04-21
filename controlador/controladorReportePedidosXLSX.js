@@ -57,9 +57,11 @@ controlador.exportarExcel = function(req, res){
                 res.render('reporte-pedidos-filtros', datos);
         } else{
 
-          registrosPedidos.forEach(function(registro){
+              var vsubTotal = 0;
+              registrosPedidos.forEach(function(registro){
 
-              arrItemsPedidos[fila] = {misc: '', id_carta_x_fecha: registro.id_carta_x_fecha, nombre_tipo_ent: registro.nombre_tipo_ent, nombre_ent: registro.nombre_ent, nombre_tipo_comida: registro.nombre_tipo_comida, nombre_alm_prog: registro.nombre_alm_prog, cantidad_pedido: registro.cantidad_pedido, tipo_precio_pedido: registro.tipo_precio_pedido, fecha_reg_pedido: registro.fecha_reg_pedido};
+              vsubTotal = registro.cantidad_pedido * registro.precio_alm_prog;
+              arrItemsPedidos[fila] = {misc: '', id_carta_x_fecha: registro.id_carta_x_fecha, nombre_tipo_ent: registro.nombre_tipo_ent, nombre_ent: registro.nombre_ent, nombre_tipo_comida: registro.nombre_tipo_comida, nombre_alm_prog: registro.nombre_alm_prog, cantidad_pedido: registro.cantidad_pedido, precio_alm_prog: registro.precio_alm_prog, subTotal: vsubTotal, tipo_precio_pedido: registro.tipo_precio_pedido, fecha_reg_pedido: registro.fecha_reg_pedido};
               fila += 1;
           });
 
@@ -131,7 +133,23 @@ controlador.exportarExcel = function(req, res){
             },
           },
 
-          regDatosNumeric: {
+          regDatosNumberInt: {
+            font: {
+              sz: 11,
+              bold: false
+            },
+            numFmt: "0"
+          },
+
+          regDatosNumberDec: {
+            font: {
+              sz: 11,
+              bold: false
+            },
+            numFmt: "0.00"
+          },
+
+          regDatosDate: {
             font: {
               sz: 11,
               bold: false
@@ -162,7 +180,7 @@ controlador.exportarExcel = function(req, res){
         		displayName: 'Fecha de la Carta',
         		headerStyle: styles.headerDatos1,
         		width: 80,
-            cellStyle: styles.regDatosNumeric
+            cellStyle: styles.regDatosDate
         	},
           nombre_tipo_ent: { // <- the key should match the actual data key 
             displayName: 'Tipo de Entidad', // <- Here you specify the column header 
@@ -187,37 +205,44 @@ controlador.exportarExcel = function(req, res){
           nombre_tipo_comida: {
             displayName: 'Tipo de Plato',
             headerStyle: styles.headerDatos1,
-            //cellStyle: styles.cellPink, // <- Cell style 
             width: 180, // <- width in pixels 
             cellStyle: styles.regDatosString
           },
           nombre_alm_prog: {
             displayName: 'Plato',
             headerStyle: styles.headerDatos1,
-            //cellStyle: styles.cellPink, // <- Cell style 
             width: 250, // <- width in pixels 
             cellStyle: styles.regDatosString
           },
           cantidad_pedido: {
             displayName: 'Cantidad del Pedido',
             headerStyle: styles.headerDatos1,
-            //cellStyle: styles.cellPink, // <- Cell style 
             width: 80, // <- width in pixels 
-            cellStyle: styles.regDatosString
+            cellStyle: styles.regDatosNumberInt
+          },
+          precio_alm_prog: {
+            displayName: 'Precio',
+            headerStyle: styles.headerDatos1,
+            width: 80, // <- width in pixels 
+            cellStyle: styles.regDatosNumberDec
+          },
+          subTotal: {
+            displayName: 'Sub Total',
+            headerStyle: styles.headerDatos1,
+            width: 80, // <- width in pixels 
+            cellStyle: styles.regDatosNumberDec
           },
           tipo_precio_pedido: {
             displayName: 'Forma de Pago',
             headerStyle: styles.headerDatos1,
-            //cellStyle: styles.cellPink, // <- Cell style 
             width: 100, // <- width in pixels 
             cellStyle: styles.regDatosString
           },
           fecha_reg_pedido: {
             displayName: 'Fecha de Registro',
             headerStyle: styles.headerDatos1,
-            //cellStyle: styles.cellPink, // <- Cell style 
             width: 80, // <- width in pixels 
-            cellStyle: styles.regDatosNumeric
+            cellStyle: styles.regDatosDate
           }
 
         }
@@ -237,7 +262,7 @@ controlador.exportarExcel = function(req, res){
         // A merge will overwrite all data _not_ in the top-left cell. 
         const merges = [
           //{ start: { row: 1, column: 1 }, end: { row: 1, column: 10 } },
-          { start: { row: 2, column: 2 }, end: { row: 2, column: 9 } },
+          { start: { row: 2, column: 2 }, end: { row: 2, column: 11 } },
           /*{ start: { row: 4, column: 3 }, end: { row: 4, column: 6 } },
           { start: { row: 4, column: 7 }, end: { row: 4, column: 9 } },
           { start: { row: 4, column: 10 }, end: { row: 4, column: 12 } }*/

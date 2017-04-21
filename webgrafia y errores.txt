@@ -43,3 +43,8 @@ Javascript crear un array de objetos (me sirvio para crear el excel extrayendo l
 Bootstrap DatePicker para seleccionar fecha:
 --------------------------------------------
 	https://eonasdan.github.io/bootstrap-datetimepicker/
+
+
+Javascript pagina muy buena !! Arrays y Objetos:
+------------------------------------------------
+	http://chuwiki.chuidiang.org/index.php?title=Arrays_y_Objetos_en_JavaScript

@@ -1,3 +1,5 @@
 "# ctas-delifood limpio v1.0.0" 
-"# con reporte de los platos más votados listo y con datepicker para seleccionar fechas para emitir los reportes"
-"# con reporte de todos los pedidos filtrados por fechas datepicker con título dinámico según fechas"
+"# con reporte de los platos más votados listo y con datepicker para seleccionar fechas para emitir los reportes 19/04/2017"
+"# con reporte de todos los pedidos filtrados por fechas datepicker con título dinámico según fechas 20/04/2017"
+"# reporte de los platos más votados con título dinámico según fechas seleccionadas, estilos numéricos de Excel y estilos numéricos y de fecha en el Excel del reporte de pedidos 21/04/2017"
+"# se adicionó lógica para mostrar todos los platos en la página registro-platos (Menú Registros - Platos), cosa que así se van viendo los platos agregados mientras se va registrando"

@@ -3,6 +3,7 @@ var router = express.Router();
 
 var controladorPedidoAdmin = require('../controlador/controladorPedidoAdmin');
 var controladorAlmuerzoProg = require('../controlador/controladorAlmuerzoProg');
+var controladorAlmuerzoProg2 = require('../controlador/controladorAlmuerzoProg2');
 var controladorCartaxFecha = require('../controlador/controladorCartaxFecha');
 var controladorEntidad = require('../controlador/controladorEntidad');
 var controladorTipoComida = require('../controlador/controladorTipoComida');
@@ -58,13 +59,13 @@ router.post('/regPedidoAdm', controladorPedidoAdmin.tomarPedido);
 
 
 
-// INICIO - Página Menú "Registros" - "Almuerzo programado"
+// INICIO - Página Menú "Registros" - "Platos" (se registra en la tabla almuerzo programado y se muestran los registros de la misma)
 
-router.get('/registrar-almuerzo-programado', controladorTipoComida.mostrarTipoComida);
+router.get('/registrar-plato', controladorTipoComida.mostrarTipoComida, controladorAlmuerzoProg2.mostrarTodosAlmuerzoProg);
 
-router.post('/regAlmuerzoProgramado', controladorAlmuerzoProg.grabarAlmuerzoProg, controladorTipoComida.mostrarTipoComida);
+router.post('/regAlmuerzoProgramado', controladorAlmuerzoProg.grabarAlmuerzoProg);
 
-// FIN - Página Menú "Registros" - "Almuerzo programado"
+// FIN - Página Menú "Registros" - "Platos" (se registra en la tabla almuerzo programado y se muestran los registros de la misma)
 
 
 
@@ -87,19 +88,20 @@ router.get('/borrar-almuerzo-de-carta-mensaje/:mensaje/:regresar', function(req,
 // FIN - Página Menú "Registros" - "Carta de hoy"
 
 
-// INICIO - Página Menú "Reportes" - "Pedidos"
+
+// INICIO - Página Menú "Reportes" - "Reporte de Pedidos"
 router.get('/reporte-pedidos-filtros', controladorReportesFiltros.vistaPedidosFiltros);
 
 router.post('/reportePedidosExportToExcel', controladorReportePedidosXLSX.exportarExcel);
-// FIN - Página Menú "Reportes" - "Pedidos"
+// FIN - Página Menú "Reportes" - "Reporte de Pedidos"
 
 
 
-// INICIO - Página Menú "Reportes" - "Los más votados"
+// INICIO - Página Menú "Reportes" - "Reporte de Los platos más Votados"
 router.get('/reporte-los-mas-votados-filtros', controladorReportesFiltros.vistaMasVotadosFiltros);
 
 router.post('/reporteLosMasVotadosExportToExcel', controladorReporteMasVotadosXLSX.exportarExcel);
-// FIN - Página Menú "Reportes" - "Los más votados"
+// FIN - Página Menú "Reportes" - "Reporte de Los platos más Votados"
 
 
 module.exports = router;

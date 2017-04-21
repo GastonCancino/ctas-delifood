@@ -6,7 +6,7 @@ var controlador = function(){};
 
 
 
-// INICIO ------------------------------------ para página "Registros" - "Almuerzo programado" (registrar-almuerzo-programado.ejs) ------------------------------------
+// INICIO ------------------------------------ para página "Registros" - "Platos" (registrar-plato.ejs) ------------------------------------
 
 controlador.grabarAlmuerzoProg = function(req, res, next){
 
@@ -14,84 +14,135 @@ controlador.grabarAlmuerzoProg = function(req, res, next){
 	vlstid_tipo_comida = req.body.lstid_tipo_comida;
 	vnombre_alm_prog = vnombre_alm_prog.trim();
 
+	var msjTipo = '';
+	var vmsjTipo2 = '';
+	var msj2 = '';
 	var vregistrosTipoComidas;
-
-	if(vnombre_alm_prog == "" || vlstid_tipo_comida == 0){
-
-		// trayendo los tipos de comida, para cuando se regrese con el mensaje de selección.
-		modeloTipoComida.mostrarTipoComida(function(err, registrosTipoComidas){
-			if(err){
-				vregistrosTipoComidas = 'Hubo un error al traer los tipos de comida. 1';
-			} else{
-				vregistrosTipoComidas = registrosTipoComidas;
-			}
+	var vregistrosTodosAlmuerzoProg;
 
 
-			var datos = {
-				title                  : 'Cuentas Delifood',
-				msjTipo                : "warning",
-				msj1                   : "Tiene que ingresar un nombre y seleccionar el tipo.",
-				nombreAlmuerzo         : vnombre_alm_prog,
-				registrosAllTipoComida : vregistrosTipoComidas
-			}
+	// trayendo los tipos de comida, para mostrarlos antes y despues de grabar (ya que estos no varían).
+	modeloTipoComida.mostrarTipoComida(function(err3, registrosTipoComidas){
+		if(err3){
 
-			res.render('registrar-almuerzo-programado', datos);
+			vregistrosTipoComidas = 'Hubo un error al traer los tipos de comida. 3';
 
-		});
+		} else{
 
-	} else{
-
-		var registro = {
-			nombre_alm_prog : vnombre_alm_prog,
-			id_tipo_comida  : vlstid_tipo_comida
+			vregistrosTipoComidas = registrosTipoComidas;
 		}
+	
 
-		modeloAlmuerzoProg.grabarAlmuerzoProg(registro, function(err){
+
+		// trayendo los almuerzos antes de grabar (para mostrarlos en cada error).
+		modeloAlmuerzoProg.mostrarTodosAlmuerzoProg(function(err, registrosTodosAlmuerzoProg){
 			if(err){
 
-				// trayendo los tipos de comida, por si hay algun error igual mostrarlos.
-				modeloTipoComida.mostrarTipoComida(function(err2, registrosTipoComidas){
-					if(err2){
-						vregistrosTipoComidas = 'Hubo un error al traer los tipos de comida. 2';
-					} else{
-						vregistrosTipoComidas = registrosTipoComidas;
-					}
-
-					var datos = {
-						title                  : 'Cuentas Delifood',
-						msjTipo                : "danger",
-						msj1                   : "No se pudo grabar, error: " + err,
-						nombreAlmuerzo         : vnombre_alm_prog,
-						registrosAllTipoComida : vregistrosTipoComidas
-					}
-
-					res.render('registrar-almuerzo-programado', datos);
-				});
+				vmsjTipo2 = 'Danger';
+				msj2 = "No se pudieron mostrar los platos, error: " + err;
+				vregistrosTodosAlmuerzoProg = [];
 
 			} else{
 
-				var datos = {
-					title                  : 'Cuentas Delifood',
-					msjTipo                : "success",
-					msj1                   : "Se grabó correctamente.",
-					nombreAlmuerzo         : vnombre_alm_prog,
-					registrosAllTipoComida : []
+				if(registrosTodosAlmuerzoProg.length < 1){
+					vmsjTipo2 = 'info';
+					msj2 = "No se encontraron platos.";
 				}
 
-				// envío por el middleware las variables hacia controladorTipoComida.mostrarTipoComida
-				req.vmsjTipo        = "success";
-				req.vmsj1           = "Se grabó correctamente.";
-				req.vnombreAlmuerzo = vnombre_alm_prog;
-				//res.render('registrar-almuerzo-programado', datos);
-				next();
+				vregistrosTodosAlmuerzoProg = registrosTodosAlmuerzoProg;
+				
 			}
-		});
-	}
+		
 
-	//res.render('registrar-almuerzo-programado', datos);
+			if(vnombre_alm_prog == "" || vlstid_tipo_comida == 0){
+
+				var datos = {
+						title                  : 'Cuentas Delifood',
+						msjTipo                : "warning",
+						msj1                   : "Tiene que ingresar un nombre y seleccionar el tipo.",
+						msjTipo2               : vmsjTipo2,
+						msj2                   : msj2,
+						nombreAlmuerzo         : vnombre_alm_prog,
+						registrosAllTipoComida : vregistrosTipoComidas,
+						registrosAllAlmuerzos  : vregistrosTodosAlmuerzoProg
+					}
+
+				res.render('registrar-plato', datos);
+
+			} else{
+
+				var registro = {
+					nombre_alm_prog : vnombre_alm_prog,
+					id_tipo_comida  : vlstid_tipo_comida
+				}
+
+
+				// grabando plato
+				modeloAlmuerzoProg.grabarAlmuerzoProg(registro, function(err){
+					if(err){
+
+						var datos = {
+							title                  : 'Cuentas Delifood',
+							msjTipo                : "danger",
+							msj1                   : "No se pudo grabar, error: " + err,
+							msjTipo2               : vmsjTipo2,
+							msj2                   : msj2,
+							nombreAlmuerzo         : vnombre_alm_prog,
+							registrosAllTipoComida : vregistrosTipoComidas,
+							registrosAllAlmuerzos  : vregistrosTodosAlmuerzoProg
+						}
+
+						res.render('registrar-plato', datos);
+
+					} else{
+
+
+
+						// vuelvo a traer todos los almuerzos para traer el plato recientemente grabado, chanco la variable vregistrosTodosAlmuerzoProg.
+						modeloAlmuerzoProg.mostrarTodosAlmuerzoProg(function(err, registrosTodosAlmuerzoProg){
+							if(err){
+
+								vmsjTipo2 = 'Danger';
+								msj2 = "No se pudieron mostrar los platos, error: " + err;
+								vregistrosTodosAlmuerzoProg = [];
+
+							} else{
+
+								if(registrosTodosAlmuerzoProg.length < 1){
+									vmsjTipo2 = 'info';
+									msj2 = "No se encontraron platos.";
+								}
+
+								vregistrosTodosAlmuerzoProg = registrosTodosAlmuerzoProg;
+								
+							}
+
+								var datos = {
+									title                  : 'Cuentas Delifood',
+									msjTipo                : "success",
+									msj1                   : "Se grabó correctamente.",
+									msjTipo2               : vmsjTipo2,
+									msj2                   : msj2,
+									nombreAlmuerzo         : vnombre_alm_prog,
+									registrosAllTipoComida : vregistrosTipoComidas,
+									registrosAllAlmuerzos  : vregistrosTodosAlmuerzoProg
+								}
+
+								res.render('registrar-plato', datos);
+
+						});
+						
+					}
+				});
+			}
+
+		});
+
+	});
+
 }
 
-// FIN ------------------------------------ para página "Registros" - "Almuerzo programado" (registrar-almuerzo-programado.ejs) ------------------------------------
+// FIN ------------------------------------ para página "Registros" - "Platos" (registrar-plato.ejs) ------------------------------------
 
 
 

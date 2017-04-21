@@ -11,6 +11,38 @@ controlador.exportarExcel = function(req, res){
     }
 
 
+    // INICIO ------------------- formatear y mostrar fecha
+    fecini = req.body.lstFechaInicio;
+    fecfin = req.body.lstFechaFin;
+    var diaI, mesI, anioI, diaF, mesF, anioF;
+    diaI  = fecini.substr(8,2);
+    mesI  = fecini.substr(5,2);
+    anioI = fecini.substr(0,4);
+
+    diaF  = fecfin.substr(8,2);
+    mesF  = fecfin.substr(5,2);
+    anioF = fecfin.substr(0,4);
+
+    var meses = new Object();
+    var meses = {"0": "Nada", "01": "Enero", "02": "Febrero", "03": "Marzo", "04": "Abril", "05": "Mayo", "06": "Junio", "07": "Julio", "08": "Agosto", "09": "Septiembre", "10": "Octubre", "11": "Noviembre", "12": "Diciembre"};
+    var nombreMesI = meses[mesI];
+    var nombreMesF = meses[mesF];
+    var complementoTituloReporte = '';
+
+
+    if(anioI != anioF){
+        complementoTituloReporte = ' del ' + diaI + ' de ' + nombreMesI + ' del ' + anioI + '   hasta el ' + diaF + ' de ' + nombreMesF + ' del ' + anioF;
+        
+    } else{
+        if(nombreMesI == nombreMesF){
+            complementoTituloReporte = ' del ' + diaI + ' hasta el ' + diaF + ' de ' + nombreMesF + ' del ' + anioF;
+        } else{
+            complementoTituloReporte = ' del ' + diaI + ' de ' + nombreMesI + ' hasta el ' + diaF + ' de ' + nombreMesF + ' del ' + anioF;
+        }
+    }
+    // FIN ------------------- formatear y mostrar fecha
+
+
     modelo.consultaMasVotadosConFiltrosFecha(fechas, function(err, registrosMasVotados){
           if(err){
 
@@ -160,6 +192,21 @@ controlador.exportarExcel = function(req, res){
                 }*/
             },
 
+            regDatosString: {
+              font: {
+                sz: 11,
+                bold: false
+              },
+            },
+
+            regDatosNumberInt: {
+              font: {
+                sz: 11,
+                bold: false
+              },
+              numFmt: "0"
+            }
+
           };
            
           //Array of objects representing heading rows (very top) 
@@ -167,7 +214,7 @@ controlador.exportarExcel = function(req, res){
             //[{value: 'a1', style: styles.headerDark}, {value: 'b1', style: styles.headerDark}, {value: 'c1', style: styles.headerDark}],
             //['a2', 'b2', 'c2'] // <-- It can be only values 
             [''],
-            ['', {value: 'Reporte de los más consumidos', style: styles.colorHeaderTitle}],
+            ['', {value: 'Reporte de los más consumidos' + complementoTituloReporte, style: styles.colorHeaderTitle}],
             [''],
           ];
            
@@ -185,9 +232,9 @@ controlador.exportarExcel = function(req, res){
                 // if the status is 1 then color in green else color in red 
                 // Notice how we use another cell value to style the current one 
                 //return (row.status_id == ".") ? styles.cellGreen : {fill: {fgColor: {rgb: 'FFFF0000'}}}; // <- Inline cell style is possible  
-                return (row.misc == ".") ? styles.headerDatos1 : {}; // <- Inline cell style is possible  
+                return (row.misc == ".") ? styles.headerDatos1 : styles.regDatosString; // <- Inline cell style is possible  
               },
-              width: 250 // <- width in pixels 
+              width: 450 // <- width in pixels 
             },
             cantidad: {
               displayName: 'Cantidad',
@@ -196,7 +243,7 @@ controlador.exportarExcel = function(req, res){
                 // if the status is 1 then color in green else color in red 
                 // Notice how we use another cell value to style the current one 
                 //return (row.status_id == ".") ? styles.cellGreen : {fill: {fgColor: {rgb: 'FFFF0000'}}}; // <- Inline cell style is possible  
-                return (row.misc == ".") ? styles.headerDatos1 : {}; // <- Inline cell style is possible  
+                return (row.misc == ".") ? styles.headerDatos1 : styles.regDatosNumberInt; // <- Inline cell style is possible  
               },
               /*cellFormat: function(value, row) { // <- Renderer function, you can access also any row.property 
                 return (value == 1) ? 'Active' : 'Inactive';
