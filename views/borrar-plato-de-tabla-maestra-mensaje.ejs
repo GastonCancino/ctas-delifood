@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <script src="javascripts/jquery-3.1.1.min.js"></script>
+  </head>
+  <body>
+	<!-- barra de navegacion con bootstrap, estatica en la parte superior -->
+  	<%- include('commons/nav-bar'); %>
+
+
+	<!-- panel -->
+	<br>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+	    	<h3 class="panel-title"></h3>
+	  	</div>
+		<div class="panel-body">
+		
+		<div class="alert alert-warning"><%= mensaje %> <a class="btn btn-default" href="/<%= regresar %>" role="button">Regresar</a></div>
+	
+		</div>
+	</div>
+
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

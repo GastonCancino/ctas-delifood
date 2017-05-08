@@ -59,13 +59,32 @@ router.post('/regPedidoAdm', controladorPedidoAdmin.tomarPedido);
 
 
 
+
 // INICIO - Página Menú "Registros" - "Platos" (se registra en la tabla almuerzo programado y se muestran los registros de la misma)
 
 router.get('/registrar-plato', controladorTipoComida.mostrarTipoComida, controladorAlmuerzoProg2.mostrarTodosAlmuerzoProg);
 
 router.post('/regAlmuerzoProgramado', controladorAlmuerzoProg.grabarAlmuerzoProg);
 
+router.get('/borrar-plato-de-tabla-maestra/:id_alm_prog', controladorAlmuerzoProg.borrarAlmuerzoProg);
+
+// definimos 2 PLACE HOLDERS "mensaje" y "regresar" separados con / esto le indica a express que seguido habrá otro placeholder
+router.get('/borrar-plato-de-tabla-maestra-mensaje/:mensaje/:regresar', function(req, res, next){
+	var mensaje = req.params.mensaje;
+	var regresar = req.params.regresar;
+	res.render('borrar-plato-de-tabla-maestra-mensaje', { title: 'Cuentas Delifood', mensaje: mensaje, regresar: regresar});
+});
+
 // FIN - Página Menú "Registros" - "Platos" (se registra en la tabla almuerzo programado y se muestran los registros de la misma)
+
+
+
+
+
+// INICIO - Página Menú "Registros" - "Entidad"
+router.get('/registrar-entidad', controladorEntidad.mostrarTipoEntidades2, controladorEntidad.mostrarEntidades);
+// FIN - Página Menú "Registros" - "Entidad"
+
 
 
 
@@ -86,6 +105,7 @@ router.get('/borrar-almuerzo-de-carta-mensaje/:mensaje/:regresar', function(req,
 });
 
 // FIN - Página Menú "Registros" - "Carta de hoy"
+
 
 
 

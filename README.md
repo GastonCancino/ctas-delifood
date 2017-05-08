@@ -3,3 +3,5 @@
 "# con reporte de todos los pedidos filtrados por fechas datepicker con título dinámico según fechas 20/04/2017"
 "# reporte de los platos más votados con título dinámico según fechas seleccionadas, estilos numéricos de Excel y estilos numéricos y de fecha en el Excel del reporte de pedidos 21/04/2017"
 "# se adicionó lógica para mostrar todos los platos en la página registro-platos (Menú Registros - Platos), cosa que así se van viendo los platos agregados mientras se va registrando"
+"# se adicionó lógica para poder borrar platos, siempre y cuando no esten registrados en alguna carta 08/05/2017"
+"# creación de la página para registrar nuevas entidades. Mostrar los tipos de entidad y mostrar las entidades en la misma página 08/05/2017"

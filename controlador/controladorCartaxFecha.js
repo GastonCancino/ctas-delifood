@@ -99,11 +99,11 @@ controlador.borrarAlmuerzoDecarta = function(req, res){
 			id_alm_prog      : vid_alm_prog
 		}
 
-		modeloPedido.consultarAlmuerzoDecarta(registro, function(err, registroPedido){
-			if(err){
+		modeloPedido.consultarAlmuerzoDePedido(registro, function(err1, registroPedido){
+			if(err1){
 				var datos = {
 					msjTipo                  : "danger",
-					msj1                     : "No se pudo consultar si se puede borrar el almuerzo de la carta, error: " + err,  // mensaje para la seccion "Carta de hoy" de la pagina web
+					msj1                     : "No se pudo consultar si se puede borrar el almuerzo de la carta, error: " + err1,  // mensaje para la seccion "Carta de hoy" de la pagina web
 					msj2                     : "",  // mensaje para la seccion "Agregar almuerzo a la carta de hoy" de la pagina web
 					title                    : "Cuentas Delifood",
 					registrosCarta           : [],
@@ -114,15 +114,13 @@ controlador.borrarAlmuerzoDecarta = function(req, res){
 
 			} else{
 
-
 				if(registroPedido.length < 1){
 
-
-					modeloCartaxFecha.borrarAlmuerzoDecarta(registro, function(err){
-						if(err){
+					modeloCartaxFecha.borrarAlmuerzoDecarta(registro, function(err2){
+						if(err2){
 							var datos = {
 								msjTipo                  : "danger",
-								msj1                     : "No se pudo borrar el almuerzo de la carta, error: " + err,  // mensaje para la seccion "Carta de hoy" de la pagina web
+								msj1                     : "No se pudo borrar el almuerzo de la carta, error: " + err2,  // mensaje para la seccion "Carta de hoy" de la pagina web
 								msj2                     : "",  // mensaje para la seccion "Agregar almuerzo a la carta de hoy" de la pagina web
 								title                    : "Cuentas Delifood",
 								registrosCarta           : [],
@@ -141,18 +139,7 @@ controlador.borrarAlmuerzoDecarta = function(req, res){
 
 					var regresar = "registrar-carta-por-fecha";
 					var mensaje = "No se puede borrar el almuerzo de la carta porque ya existen pedidos con este almuerzo";
-					var datos = {
-						msjTipo                  : "warning",
-						msj1                     : "No se puede borrar el almuerzo de la carta porque ya existen pedidos con este almuerzo",  // mensaje para la seccion "Carta de hoy" de la pagina web
-						msj2                     : "",  // mensaje para la seccion "Agregar almuerzo a la carta de hoy" de la pagina web
-						title                    : "Cuentas Delifood",
-						registrosCarta           : [],
-						registrosAllAlmuerzoProg : []
-					}
 
-					//res.render('registrar-carta-por-fecha', datos);
-					
-					//res.redirect('/registrar-carta-por-fecha/?valid='+mensaje);
 					res.redirect('/borrar-almuerzo-de-carta-mensaje/'+mensaje+'/'+regresar);
 
 				}

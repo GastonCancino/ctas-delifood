@@ -20,4 +20,10 @@ modelo.borrarAlmuerzoDecarta = function(registro, cb){
 	conexion.query("delete from carta_x_fecha where id_carta_x_fecha=? and id_alm_prog=? ", [registro.id_carta_x_fecha, registro.id_alm_prog], cb);
 }
 
+
+// para página "Registros" - "Platos" (registrar-plato) -----------------------------------
+modelo.consultarAlmuerzoDeCarta = function(IdAlmuerzoProg, cb){
+	conexion.query("select * from carta_x_fecha where estado_carta_x_fecha = 1 and id_alm_prog = ?", IdAlmuerzoProg, cb);
+}
+
 module.exports = modelo;

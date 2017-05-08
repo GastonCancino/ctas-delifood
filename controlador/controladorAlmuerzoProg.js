@@ -1,5 +1,6 @@
 var modeloAlmuerzoProg = require('../modelo/modeloAlmuerzoProg');
 var modeloTipoComida = require('../modelo/modeloTipoComida');
+var modeloCartaxFecha = require('../modelo/modeloCartaxFecha');
 
 var controlador = function(){};
 
@@ -140,6 +141,59 @@ controlador.grabarAlmuerzoProg = function(req, res, next){
 
 	});
 
+}
+
+
+controlador.borrarAlmuerzoProg = function(req, res){
+	var vid_alm_prog = req.params.id_alm_prog;
+
+	modeloCartaxFecha.consultarAlmuerzoDeCarta(vid_alm_prog, function(err1, registroAlmuerzoCarta){
+		if(err1){
+			var datos = {
+				msjTipo                : "",
+				msj1                   : "",
+				msjTipo2               : "danger",
+				msj2                   : "No se pudo consultar si se puede borrar el plato de la tabla maestra de platos, error: " + err1, // mensaje para la sección "Platos" (grilla que muestra todos los platos)
+				title                  : "Cuentas Delifood",
+				nombreAlmuerzo         : '',
+				registrosAllTipoComida : [],
+				registrosAllAlmuerzos  : []
+			}
+
+			res.render('registrar-plato', datos);
+
+		} else{
+			if(registroAlmuerzoCarta.length < 1){
+
+				modeloAlmuerzoProg.borrarAlmuerzoProg(vid_alm_prog, function(err2){
+					if(err2){
+						var datos = {
+							msjTipo                : "",
+							msj1                   : "",
+							msjTipo2               : "danger",
+							msj2                   : "No se pudo borrar el plato de la tabla maestra de platos, error: " + err2, // mensaje para la sección "Platos" (grilla que muestra todos los platos)
+							title                  : "Cuentas Delifood",
+							nombreAlmuerzo         : '',
+							registrosAllTipoComida : [],
+							registrosAllAlmuerzos  : []
+						}
+
+						res.render('registrar-plato', datos);
+						
+					} else{
+						res.redirect('/registrar-plato');
+					}
+				});
+
+			} else{
+				var regresar = "registrar-plato";
+				var mensaje = "No se puede borrar el plato porque ya existe en una de las cartas.";
+
+				res.redirect('/borrar-plato-de-tabla-maestra-mensaje/'+mensaje+'/'+regresar);
+			}
+		}
+
+	});
 }
 
 // FIN ------------------------------------ para página "Registros" - "Platos" (registrar-plato.ejs) ------------------------------------
