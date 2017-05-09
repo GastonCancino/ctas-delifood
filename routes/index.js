@@ -83,6 +83,10 @@ router.get('/borrar-plato-de-tabla-maestra-mensaje/:mensaje/:regresar', function
 
 // INICIO - Página Menú "Registros" - "Entidad"
 router.get('/registrar-entidad', controladorEntidad.mostrarTipoEntidades2, controladorEntidad.mostrarEntidades);
+
+router.post('/regEntidad', controladorEntidad.grabarEntidad, controladorEntidad.mostrarTipoEntidades2, controladorEntidad.mostrarEntidades);
+
+router.get('/borrar-entidad-de-tabla-maestra/:id_ent/:id_tipo_ent', controladorEntidad.borrarEntidad, controladorEntidad.mostrarTipoEntidades2, controladorEntidad.mostrarEntidades);
 // FIN - Página Menú "Registros" - "Entidad"
 
 
@@ -105,6 +109,19 @@ router.get('/borrar-almuerzo-de-carta-mensaje/:mensaje/:regresar', function(req,
 });
 
 // FIN - Página Menú "Registros" - "Carta de hoy"
+
+
+
+
+
+// INICIO - Página Menú "Consultas" - "Carta por fecha"
+
+router.get('/consulta-carta-por-fecha', controladorCartaxFecha.mostrarCartaPorFecha);
+
+router.post('/consulta-carta-por-fecha', controladorCartaxFecha.mostrarCartaPorFecha);
+
+// FIN - Página Menú "Consultas" - "Carta por fecha"
+
 
 
 

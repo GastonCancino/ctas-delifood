@@ -23,7 +23,7 @@
         <div class="alert alert-<%= msjTipo1 %>"><%= msj1 %></div>
         <% } %>
 
-        <form name="f1" action="regEntidad" method="post">
+        <form name="f1" action="/regEntidad" method="post">
           <div class="form-group">
 
             <div class="row">
@@ -77,7 +77,7 @@
               <tr>
                 <td><%= registro.nombre_tipo_ent %></td>
                 <td><%= registro.nombre_ent %></td>
-                <td><a href="/borrar-entidad-de-tabla-maestra/<%= registro.id_ent %>"><span class="glyphicon glyphicon-trash"></a></td>
+                <td><a href="/borrar-entidad-de-tabla-maestra/<%= registro.id_ent %>/<%= registro.id_tipo_ent %>"><span class="glyphicon glyphicon-trash"></a></td>
               </tr>
 
               <% }) %>

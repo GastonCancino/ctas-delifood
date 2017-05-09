@@ -7,9 +7,17 @@ var controlador = function(){};
 // INICIO ------------------------------------ para página Menú Pedido (registrar-pedido.ejs) ------------------------------------
 
 controlador.mostrarCartaDeHoy = function(req, res, next){
+	var ceroA = '0';
 	var f = new Date();
+	var dia = f.getDate();
 	var mes = f.getMonth()+1;
-	var vfechaActualMySQL = f.getFullYear() +"-"+ mes +"-"+ f.getDate();
+	if(dia < 10){
+    	dia = ceroA.concat(dia);
+    }
+    if(mes < 10){
+    	mes = ceroA.concat(mes);
+    }
+	var vfechaActualMySQL = f.getFullYear() +"-"+ mes +"-"+ dia;
 
 	modeloPedidoAdmin.mostrarCartaDeHoy(vfechaActualMySQL, function(err, registrosCartaDeHoy){
 		if(err){

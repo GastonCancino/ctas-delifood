@@ -154,4 +154,66 @@ controlador.borrarAlmuerzoDecarta = function(req, res){
 
 // FIN ------------------------------------ para página Menú "Registros" - "Carta de hoy" (registrar-carta-por-fecha.ejs) ------------------------------------
 
+
+
+// INICIO -------------------------------- para página Menú "Consultas" - "Carta por fecha" (consulta-carta-por-fecha.ejs)-----------------------------------
+controlador.mostrarCartaPorFecha = function(req, res){
+
+	// INICIO - transformando la fecha actual a formato aceptado por MySQL
+		var ceroA = '0';
+		var fechaActual = new Date();
+		var dia = fechaActual.getDate();
+		var mes = fechaActual.getMonth() + 1;
+		var anio = fechaActual.getFullYear();
+		if(dia < 10){
+            dia = ceroA.concat(dia);
+          }
+         if(mes < 10){
+            mes = ceroA.concat(mes);
+         }
+		var fechaActualMySQL = anio +"-"+ mes +"-"+ dia;
+	// FIN - transformando la fecha actual a formato aceptado por MySQL
+
+	var vdtpFecha = req.body.dtpFecha;
+	
+	// if abreviado:
+	(vdtpFecha != "" && vdtpFecha != undefined) ? fechaActualMySQL = vdtpFecha : fechaActualMySQL = fechaActualMySQL;
+
+
+	modeloCartaxFecha.mostrarCartaDeHoy(fechaActualMySQL, function(err, registrosCartaxFecha){
+		if(err){
+
+			var datos = {
+				msjTipo                  : "danger",
+				msj1                     : "No se pudo mostrar la carta para la fecha "+vdtpFecha+", error: " + err, // mensaje para la seccion "Carta de hoy" de la pagina web
+				msj2                     : "", // mensaje para la seccion "Agregar almuerzo a la carta de hoy" de la pagina web
+				title                    : "Cuentas Delifood",
+				vdtpFecha                : vdtpFecha,
+				registrosCarta           : []
+			}
+
+			res.render('consulta-carta-por-fecha', datos);
+
+		} else{
+
+			var vmsj1 = "";
+			if(registrosCartaxFecha.length < 1){
+				vmsj1 = "No se encontró carta para la fecha " + vdtpFecha;
+			}
+
+			var datos = {
+				msjTipo                  : "info",
+				msj1                     : vmsj1,
+				title                    : "Cuentas Delifood",
+				vdtpFecha                : vdtpFecha,
+				registrosCarta           : registrosCartaxFecha
+			}
+
+			res.render('consulta-carta-por-fecha', datos);
+
+		}
+	});
+}
+// FIN -------------------------------- para página Menú "Consultas" - "Carta por fecha" (consulta-carta-por-fecha.ejs)-----------------------------------
+
 module.exports = controlador;

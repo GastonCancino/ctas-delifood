@@ -5,3 +5,6 @@
 "# se adicionó lógica para mostrar todos los platos en la página registro-platos (Menú Registros - Platos), cosa que así se van viendo los platos agregados mientras se va registrando"
 "# se adicionó lógica para poder borrar platos, siempre y cuando no esten registrados en alguna carta 08/05/2017"
 "# creación de la página para registrar nuevas entidades. Mostrar los tipos de entidad y mostrar las entidades en la misma página 08/05/2017"
+"# se adicionó la lógica para grabar nueva entidad con las validaciones necesarias y retornando a la misma página con los mensajes necesarios 09/05/2017"
+"# se adicionó la lógica para eliminar una entidad, primero verificando que no exista en algún pedido y retornando a la misma página con los mensajes necesarios 09/05/2017"
+"# creación de la página consulta de carta por fecha, se selecciona una fecha del datepicker y se muestra en la misma página el resultado 09/05/2017"

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/bootstrap-datetimepicker-4.17.37.min.css" />
+    <script src="javascripts/jquery-2.2.4.min.js"></script>
+    <script src="javascripts/moment-2.10.6.min.js"></script>
+    <script src="javascripts/moment-with-locales.js"></script>
+    <script src="javascripts/bootstrap-datetimepicker-4.17.37.min.js"></script>
+  </head>
+  <body>
+    <!-- barra de navegacion con bootstrap, estatica en la parte superior -->
+    <%- include('commons/nav-bar'); %>
+
+    <!--panel 1-->
+    <br>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Carta de la fecha:</h3>
+      </div>
+
+      <div class="panel-body">
+
+        <% if(msj1 != ""){ %>
+        <div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
+        <% } %>
+
+        <%  
+          var ceroA = '0';
+          var fechaHoy = new Date();
+          var diaA = fechaHoy.getDate();
+          var mesA = fechaHoy.getMonth() + 1;
+          var anioA = fechaHoy.getFullYear();
+          if(diaA < 10){
+            diaA = ceroA.concat(diaA);
+          }
+          if(mesA < 10){
+            mesA = ceroA.concat(mesA);
+          }
+          var fechaHoyMySQL = anioA +"-"+ mesA +"-"+ diaA;
+
+          /* if abreviado: */
+          (vdtpFecha == "" || vdtpFecha == undefined) ? vdtpFecha=fechaHoyMySQL : vdtpFecha=vdtpFecha;
+        %>
+
+        <form name="f1" id="f1" action="/consulta-carta-por-fecha" method="post">
+          <div class="form-group">
+              <div class="row">
+                <div class="col-xs-2">
+                  <div class='input-group date' id='datetimepicker'>
+                            <input type='text' class="form-control" name="dtpFecha" id="dtpFecha" value="<%= vdtpFecha %>" onblur="document.getElementById('f1').submit();" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <div class="row">
+                <table class="table table-striped">
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Almuerzo</th>
+                    <th>Precio</th>
+                    <th>Tipo</th>
+                  </tr>
+                  <% registrosCarta.forEach(function(registro){ %>
+                  <tr>
+                    <td>
+                      <label for="inputdefault">
+                      <%  
+                        var cero = '0';
+                        var fechaMySQL = registro.id_carta_x_fecha;
+                        var dia = fechaMySQL.getDate();
+                        var mes = fechaMySQL.getMonth() + 1;
+                        var anio = fechaMySQL.getFullYear();
+                        if(dia < 10){
+                          dia = cero.concat(dia);
+                        }
+                        if(mes < 10){
+                          mes = cero.concat(mes);
+                        }
+                        var fechaFormateada = dia +"-"+ mes +"-"+ anio;
+                        var fechaFormateadaMySQL = anio +"-"+ mes +"-"+ dia;
+                      %>
+                      <%= fechaFormateada %></label>
+                      <input type="hidden" name="id_carta_x_fecha1" id="id_carta_x_fecha1" value="<%= fechaFormateadaMySQL %>">
+                      <input type="hidden" name="id_alm_prog" id="id_alm_prog" value="<%= registro.id_alm_prog %>">
+                    </td>
+                    <td><label for="inputdefault"><%= registro.nombre_alm_prog %></label></td>
+                    <td><label for="inputdefault"><%= registro.precio_alm_prog %></label></td>
+                    <td><label for="inputdefault"><%= registro.nombre_tipo_comida %></label></td>
+                  </tr>
+                  <% }) %>
+                </table>
+            </div>  <!-- class="row" -->
+          </div>    <!-- class="form-group" -->
+        </form>
+
+      </div> <!-- class="panel-body" -->
+
+    </div>
+    <!--fin panel 1-->
+
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker').datetimepicker({
+              format: 'YYYY-MM-DD',
+              locale: 'es'/*,
+              tooltips: {
+                today: 'Revenir à aujourd\'hui',
+                clear: 'Effacer la sélection',
+                close: 'Fermer',
+                selectMonth: 'Sélectionner le mois',
+                prevMonth: 'Mois précédent',
+                nextMonth: 'Mois suivant',
+                selectYear: 'Sélectionner l\'année',
+                prevYear: 'Année précédente',
+                nextYear: 'Année suivante',
+                selectDecade: 'Sélectionner la décénnie',
+                prevDecade: 'Décénnie précédente',
+                nextDecade: 'Décennie suivante',
+                prevCentury: 'Siècle précédent',
+                nextCentury: 'Siècle suivant'
+            }*/
+
+            /*
+            longDateFormat : {
+                LT : 'H:mm',
+                LTS : 'H:mm:ss',
+                L : 'DD/MM/YYYY',
+                LL : 'D [de] MMMM [de] YYYY',
+                LLL : 'D [de] MMMM [de] YYYY H:mm',
+                LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
+        },
+        */
+            });
+            
+        });
+    </script>
+  </body>
+</html>

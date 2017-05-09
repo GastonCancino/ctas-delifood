@@ -19,4 +19,9 @@ modelo.consultarAlmuerzoDePedido = function(registro, cb){ //
 	conexion.query("select * from pedido where id_carta_x_fecha=? and id_alm_prog=? ", [registro.id_carta_x_fecha, registro.id_alm_prog], cb);
 }
 
+// para página "Registros" - "Entidad" (registrar-entidad.ejs) ------------------------------------
+modelo.consultaEntidadEnPedidos = function(IdEntidad, cb){
+	conexion.query("select * from pedido where id_ent = ?", IdEntidad, cb);
+}
+
 module.exports = modelo;
