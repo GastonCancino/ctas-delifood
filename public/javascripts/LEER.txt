@@ -1,0 +1,17 @@
+
+!!!!!!!!!!!!!!!!   NO BORRAR   !!!!!!!!!!!!!
+
+
+jquery-2.2.4.min.js
+jquery-3.1.1.min.js
+
+y ningun js de esta carpeta ya que el jquery 2.2.4 es usado solo en las páginas que 
+deben mostrar un control datepicker, ya que este datepicker no funciona con la 
+versión 3.1.1 de jquery.
+
+Este datepicker también necesita de los archivos:
+
+bootstrap-datetimepicker-4.17.37.min.css
+moment-2.10.6.min.js
+moment-with-locales.js
+bootstrap-datetimepicker-4.17.37.min.js

@@ -216,4 +216,60 @@ controlador.tomarPedido = function(req, res){
 	res.render('ver-resultado-grabar-pedido', datos); //res.render('ver-pedido-recuperado', datos);
 }
 
+// FIN ------------------------------------ para página Menú Pedido (registrar-pedido.ejs) ------------------------------------
+
+
+
+
+// INICIO ------------------------------------ para página Menú Consultas - Pedidos (consulta-pedidos-por-fecha.ejs) ----------
+controlador.consultaPedidosPorFecha = function(req, res){
+
+	var fecha = req.body.dtpFecha;
+
+	if(fecha == undefined || fecha == ""){
+
+		// INICIO - transformando la fecha actual a formato aceptado por MySQL
+		var fechaActual = new Date();
+		var dia = fechaActual.getDate();
+		var mes = fechaActual.getMonth() + 1;
+		var anio = fechaActual.getFullYear();
+		var fechaActualMySQL = anio +"-"+ mes +"-"+ dia;
+		// FIN - transformando la fecha actual a formato aceptado por MySQL
+
+		fecha = fechaActualMySQL;
+	}
+		
+	modeloPedidoAdmin.consultaPedidosPorFecha(fecha, function(err, registrosPedidosPorFecha){
+
+		if(err){
+
+			var datos={
+				msj1                   : 'No se pudo mostrar los pedidos para la fecha ' + fecha + ', error: ' + err,
+				msjTipo                : "danger",
+				title                  : 'Cuentas Delifood',
+				vdtpFecha              : fecha,
+				registrosPedidosxFecha : []
+			}
+
+			res.render("consulta-pedidos-por-fecha", datos);
+
+		} else{
+
+			var datos={
+				msj1                   : "",
+				msjTipo                : "success",
+				title                  : 'Cuentas Delifood',
+				vdtpFecha              : fecha,
+				registrosPedidosxFecha : registrosPedidosPorFecha
+			}
+
+			res.render("consulta-pedidos-por-fecha", datos);
+
+		}
+
+	});
+
+}
+// FIN ------------------------------------ para página Menú Consultas - Pedidos (consulta-pedidos-por-fecha.ejs) ----------
+
 module.exports = controlador;

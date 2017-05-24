@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <meta http-equiv="refresh" content="180;url=/consulta-pedidos-por-fecha">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/stylesheets/bootstrap-datetimepicker-4.17.37.min.css" />
@@ -20,7 +21,7 @@
     <br>
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Carta de la fecha:</h3>
+        <h3 class="panel-title">Pedidos a la fecha:</h3>
       </div>
 
       <div class="panel-body">
@@ -47,16 +48,16 @@
             (vdtpFecha == "" || vdtpFecha == undefined) ? vdtpFecha=fechaHoyMySQL : vdtpFecha=vdtpFecha;
           %>
 
-          <form name="f1" id="f1" action="/consulta-carta-por-fecha" method="post">
+          <form name="f1" id="f1" action="/consulta-pedidos-por-fecha" method="post">
             <div class="form-group">
                 <div class="row">
                   <div class="col-md-3">
                     <div class='input-group date' id='datetimepicker'>
-                              <input type='text' class="form-control" name="dtpFecha" id="dtpFecha" value="<%= vdtpFecha %>" onblur="document.getElementById('f1').submit();" />
-                              <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                              </span>
-                          </div>
+                        <input type='text' class="form-control" name="dtpFecha" id="dtpFecha" value="<%= vdtpFecha %>" onblur="document.getElementById('f1').submit();" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
                   </div>
                 </div>
             </div>
@@ -67,9 +68,11 @@
                         <th>Fecha</th>
                         <th>Almuerzo</th>
                         <th>Precio</th>
-                        <th>Tipo</th>
+                        <th>Cantidad</th>
+                        <th>Tipo Pago</th>
+                        <th>Cliente</th>
                       </tr>
-                      <% registrosCarta.forEach(function(registro){ %>
+                      <% registrosPedidosxFecha.forEach(function(registro){ %>
                       <tr>
                         <td>
                           <label for="inputdefault">
@@ -94,7 +97,9 @@
                         </td>
                         <td><label for="inputdefault"><%= registro.nombre_alm_prog %></label></td>
                         <td><label for="inputdefault"><%= registro.precio_alm_prog %></label></td>
-                        <td><label for="inputdefault"><%= registro.nombre_tipo_comida %></label></td>
+                        <td><label for="inputdefault"><%= registro.cantidad_pedido %></label></td>
+                        <td><label for="inputdefault"><%= registro.tipo_precio_pedido %></label></td>
+                        <td><label for="inputdefault"><%= registro.nombre_ent %></label></td>
                       </tr>
                       <% }) %>
                     </table>

@@ -390,5 +390,33 @@ controlador.borrarEntidad = function(req, res, next){
 	
 }
 
+controlador.editaEntidad = function(req, res, next){
+
+	var IdEntidad = req.params.id_ent;
+	var nombreEntidad = req.params.nombre_ent;
+
+	var registro = {
+		id_ent     : IdEntidad,
+		nombre_ent : nombreEntidad
+	}
+
+	modeloEntidad.editaEntidad(registro, function(err){
+		if(err){
+
+			req.vmsjTipo2 = 'danger';
+			req.vmsj2 = 'No se pudo cambiar el nombre de la entidad, error: ' + err;
+			next();
+			//res.render('/registrar-entidad', datos);
+
+		} else{
+			
+			req.vmsjTipo2 = 'success';
+			req.vmsj2 = 'Se cambió el nombre de la entidad correctamente.';
+			next();
+			//res.render('/registrar-entidad', datos);
+		}
+	});
+}
+
 // FIN -------------------------------------- para página Menú "Registros" - "Entidades"
 module.exports = controlador;

@@ -204,15 +204,33 @@ controlador.borrarAlmuerzoProg = function(req, res){
 // INICIO ------------------------------------ para página "Registros" - "Carta de hoy" (registrar-carta-por-fecha.ejs) ------------------------------------
 
 controlador.mostrarTodosAlmuerzoProg = function(req, res){
+	var vid_alm_prog = req.vid_alm_prog;
+	var vmsjTipo = req.vmsjTipo;
+	var vmsj2 = req.vmsj2;
+	if(vid_alm_prog == undefined){
+		vid_alm_prog = 0;
+	}
+	if(vmsjTipo == undefined){
+		vmsjTipo = "";
+	}
+	if(vmsj2 == undefined){
+		vmsj2 = "";
+	}
 
 	modeloAlmuerzoProg.mostrarTodosAlmuerzoProg(function(err, registrosTodosAlmuerzoProg){
 		if(err){
 
+			vmsjTipo = "danger";
+			if(vmsj2 == ""){
+				vmsj2 = "No se pudieron mostrar los almuerzos, error: " + err;
+			}
+
 			var datos = {
-				msjTipo                  : "danger",
+				msjTipo                  : vmsjTipo,
 				msj1                     : req.vmsj1, // mensaje para la seccion "Carta de hoy" de la pagina web
-				msj2                     : "No se pudieron mostrar los almuerzos, error: " + err, // mensaje para la seccion "Agregar almuerzo a la carta de hoy" de la pagina web
+				msj2                     : vmsj2, // mensaje para la seccion "Agregar almuerzo a la carta de hoy" de la pagina web
 				title                    : "Cuentas Delifood",
+				vid_alm_prog             : vid_alm_prog,
 				registrosCarta           : [],
 				registrosAllAlmuerzoProg : []
 			}
@@ -221,16 +239,22 @@ controlador.mostrarTodosAlmuerzoProg = function(req, res){
 
 		} else{
 
-			var vmsj2 = "";
-			if(registrosTodosAlmuerzoProg.length < 1){
-				vmsj2 = "No se encontraron almuerzos.";
+			
+			if(vmsj2 == ""){
+				if(registrosTodosAlmuerzoProg.length < 1){
+					if(vmsjTipo == ""){
+						vmsjTipo = "info";
+					}
+					vmsj2 = "No se encontraron almuerzos.";
+				}
 			}
 
 			var datos = {
-				msjTipo                  : "info",
+				msjTipo                  : vmsjTipo,
 				msj1                     : req.vmsj1, // mensaje para la seccion "Carta de hoy" de la pagina web
 				msj2                     : vmsj2, // mensaje para la seccion "Agregar almuerzo a la carta de hoy" de la pagina web
 				title                    : "Cuentas Delifood",
+				vid_alm_prog             : vid_alm_prog,
 				registrosCarta           : req.registrosCartaxFecha,
 				registrosAllAlmuerzoProg : registrosTodosAlmuerzoProg
 			}

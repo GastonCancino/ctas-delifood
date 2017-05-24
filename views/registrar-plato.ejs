@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="javascripts/jquery-3.1.1.min.js"></script>
+    <script src="/javascripts/jquery-3.1.1.min.js"></script>
   </head>
   <body>
     <!-- barra de navegacion con bootstrap, estatica en la parte superior -->
@@ -19,33 +21,32 @@
 
       <div class="panel-body">
 
-        <% if(msj1 != "" && msj1 != undefined){ %>
-        <div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
-        <% } %>
+          <% if(msj1 != "" && msj1 != undefined){ %>
+          <div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
+          <% } %>
 
-        <form name="f1" action="regAlmuerzoProgramado" method="post">
-          <div class="form-group">
-            <div class="row">
-              <div class="col-xs-4">
-                <label for="inputdefault">Nombre del Plato:</label>
-                <input type="text" name="nombre_alm_prog" id="nombre_alm_prog" class="form-control" value="<% if(nombreAlmuerzo != ''){ %><%= nombreAlmuerzo %><% } %>">
-              </div>
-              <div class="col-xs-4">
-                <label for="inputdefault">En qué tipo se registrará?</label>
-                <select name="lstid_tipo_comida" id="lstid_tipo_comida" class="form-control">
-                  <option value="0">Seleccionar</option>
-                  <% registrosAllTipoComida.forEach(function(registro){ %>
-                  <option value="<%= registro.id_tipo_comida %>"><%= registro.nombre_tipo_comida %></option>
-                  <% }) %>
-                </select>
+          <form name="f1" action="regAlmuerzoProgramado" method="post">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="inputdefault">Nombre del Plato:</label>
+                  <input type="text" name="nombre_alm_prog" id="nombre_alm_prog" class="form-control" value="<% if(nombreAlmuerzo != ''){ %><%= nombreAlmuerzo %><% } %>">
+                </div>
+                <div class="col-md-4">
+                  <label for="inputdefault">En qué tipo se registrará?</label>
+                  <select name="lstid_tipo_comida" id="lstid_tipo_comida" class="form-control">
+                    <option value="0">Seleccionar</option>
+                    <% registrosAllTipoComida.forEach(function(registro){ %>
+                    <option value="<%= registro.id_tipo_comida %>"><%= registro.nombre_tipo_comida %></option>
+                    <% }) %>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
 
-          <input type="submit" class="btn btn-primary" value="Grabar">
-        </form>
-
-      </div>
+            <input type="submit" class="btn btn-primary" value="Grabar">
+          </form>
+      </div> <!-- class="panel-body" -->
 
     </div>
     <!--fin panel 1-->
@@ -73,7 +74,7 @@
               <tr>
                 <td><%= registro.nombre_tipo_comida %></td>
                 <td><%= registro.nombre_alm_prog %></td>
-                <td><a href="/borrar-plato-de-tabla-maestra/<%= registro.id_alm_prog %>"><span class="glyphicon glyphicon-trash"></a></td>
+                <td><a href="/borrar-plato-de-tabla-maestra/<%= registro.id_alm_prog %>"><span class="glyphicon glyphicon-trash"></span></a></td>
               </tr>
 
               <% }) %>
@@ -84,6 +85,6 @@
     <!--fin panel 2-->
 
 
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

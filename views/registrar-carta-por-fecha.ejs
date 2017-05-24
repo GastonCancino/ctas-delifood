@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="javascripts/jquery-3.1.1.min.js"></script>
+    <script src="/javascripts/jquery-3.1.1.min.js"></script>
   </head>
   <body>
     <!-- barra de navegacion con bootstrap, estatica en la parte superior -->
@@ -42,7 +44,7 @@
           <table class="table table-striped">
             <tr>
               <th>Fecha</th>
-              <th>Almuerzo</th>
+              <th>Plato</th>
               <th>Precio</th>
               <th>Tipo</th>
               <th>Eliminar</th>
@@ -89,13 +91,14 @@
       </div>
 
     </div>
+
     <!--fin panel 1-->
 
 
     <!-- panel 2-->
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 class="panel-title">Agregar almuerzo a la carta de hoy</h3>
+        <h3 class="panel-title">Agregar plato a la carta de hoy</h3>
       </div>
       
       
@@ -108,8 +111,8 @@
         <form name="f2" action="agregar-almuerzo-a-carta" method="post">
           <div class="form-group">
             <div class="row">
-              <div class="col-xs-6">
-                <label for="inputdefault">Almuerzo</label>
+              <div class="col-md-6">
+                <label for="inputdefault">Plato</label>
                 <select class="form-control" name="lstAlmuerzos" id="lstAlmuerzos">
                   <option value="0">Seleccionar</option>
 
@@ -158,13 +161,13 @@
                       }
                     }
                   %>
-                  <option value="<%= registro.id_alm_prog %>"><%= registro.nombre_alm_prog %><%- espacios %>(<%= registro.nombre_tipo_comida %>)</option>
+                  <option value="<%= registro.id_alm_prog %>"<% if(registro.id_alm_prog == vid_alm_prog){ %> selected<% } %>><%= registro.nombre_alm_prog %><%- espacios %>(<%= registro.nombre_tipo_comida %>)</option>
                   <% }) %>
                   
                 </select>
                 <input type="hidden" name="id_carta_x_fecha" id="id_carta_x_fecha" value="<%= fechaHoyMySQL %>">
               </div>
-              <div class="col-xs-1">
+              <div class="col-md-2">
                 <label for="inputdefault">Precio</label>
                 <input type="text" name="precio_alm_prog" id="precio_alm_prog" class="form-control">
               </div>
@@ -182,7 +185,6 @@
     </div>
     <!-- fin panel 2-->
 
-
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

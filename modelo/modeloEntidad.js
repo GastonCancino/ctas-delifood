@@ -27,4 +27,9 @@ modelo.borrarEntidad = function(IDs, cb){
 	conexion.query("delete from entidad where id_ent = ? and id_tipo_ent = ?", [IDs.id_ent, IDs.id_tipo_ent], cb)
 }
 
+// para página Menú "Registro" - "Entidad" (registrar-entidad.ejs)
+modelo.editaEntidad = function(registro, cb){
+	conexion.query("update entidad set nombre_ent = ? where id_ent = ?", [registro.nombre_ent, registro.id_ent], cb);
+}
+
 module.exports = modelo;

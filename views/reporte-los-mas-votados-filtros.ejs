@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/stylesheets/bootstrap-datetimepicker-4.17.37.min.css" />
-    <script src="javascripts/jquery-2.2.4.min.js"></script>
-    <script src="javascripts/moment-2.10.6.min.js"></script>
-    <script src="javascripts/moment-with-locales.js"></script>
-    <script src="javascripts/bootstrap-datetimepicker-4.17.37.min.js"></script>
+    <script src="/javascripts/jquery-2.2.4.min.js"></script>
+    <script src="/javascripts/moment-2.10.6.min.js"></script>
+    <script src="/javascripts/moment-with-locales.js"></script>
+    <script src="/javascripts/bootstrap-datetimepicker-4.17.37.min.js"></script>
   </head>
    <body>
    	<!-- barra de navegacion con bootstrap, estatica en la parte superior -->
@@ -22,16 +24,14 @@
 	 	</div>
 	 	<div class="panel-body">
 
-	 		<% if(msj1 != ""){ %>
-        	<div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
-        	<% } %>
-
-			<div class="container-fluid">
+		 		<% if(msj1 != ""){ %>
+	        	<div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
+	        	<% } %>
 	 			
 				<form name="f1" action="reporteLosMasVotadosExportToExcel" method="post">
 			    	<div class="form-group">
 			    		<div class="row">
-				    		<div class="col-xs-3">
+				    		<div class="col-md-3">
 				    			<label for="inputdefault">Desde</label>
 				    			<div class='input-group date' id='datetimepicker1'>
 				                    <input type='text' class="form-control" name="lstFechaInicio" id="lstFechaInicio" />
@@ -40,7 +40,7 @@
 				                    </span>
 				                </div>
 				    		</div>
-				    		<div class="col-xs-3">
+				    		<div class="col-md-3">
 				    			<label for="inputdefault">Hasta</label>
 					    		<div class='input-group date' id='datetimepicker2' >
 				                    <input type='text' class="form-control" name="lstFechaFin" id="lstFechaFin" />
@@ -55,12 +55,10 @@
 			    		<input type="button" class="btn btn-primary" onclick="document.f1.submit();" value="Exportar">
 			    	</div>
 			    </form>
-
-			</div>
 		</div>
 	</div>
 	<!--fin panel-->
-	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
         $(function () {
             $('#datetimepicker1').datetimepicker({

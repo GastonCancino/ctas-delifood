@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="javascripts/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="/javascripts/pedido.js"></script>
+    <script src="/javascripts/jquery-3.1.1.min.js"></script>
+    <script src="/javascripts/pedido.js"></script>
   </head>
    <body>
    	<!-- barra de navegacion con bootstrap, estatica en la parte superior -->
@@ -22,7 +24,7 @@
 			<div class="container-fluid">
 	 			<div class="row">
 	 				
-		 				<div class="col-xs-12">
+		 				<div class="col-md-12">
 		 					<% if(msj1 != ""){ %>
 		 					<div class="alert alert-<%= msjTipo %>"><%= msj1 %></div>
 		 					<% } %>
@@ -36,7 +38,7 @@
 	 			<div class="row">
 
 	 				<div class="col-md-6 col-md-offset-3 text-center">
-	 					<a href="registrar-pedido" class="btn btn-primary btn-lg">Nuevo Pedido</a>
+	 					<a href="/registrar-pedido" class="btn btn-primary btn-lg">Nuevo Pedido</a>
 	 				</div>
 
 	 			</div>
@@ -46,7 +48,7 @@
 	 			<div class="row">
 
 	 				<div class="col-md-6 col-md-offset-3 text-center">
-	 					<a href="javascript:history.back(1)" class="btn btn-default">Regresar para volver a ver el pedido</a>
+	 					<a href="javascript:history.back(1)" class="btn btn-default">Regresar (volver a ver el pedido)</a>
 	 				</div>
 
 	 			</div>
@@ -54,6 +56,6 @@
 		</div>
 	</div>
 	<!--fin panel-->
-	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	</body>
 </html>

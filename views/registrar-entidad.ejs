@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="javascripts/jquery-3.1.1.min.js"></script>
+    <script src="/javascripts/jquery-3.1.1.min.js"></script>
+    <script src="/javascripts/registrar-entidad.ejs.js"></script>
   </head>
   <body>
     <!-- barra de navegacion con bootstrap, estatica en la parte superior -->
@@ -19,37 +22,36 @@
 
       <div class="panel-body">
 
-        <% if(msj1 != "" && msj1 != undefined){ %>
-        <div class="alert alert-<%= msjTipo1 %>"><%= msj1 %></div>
-        <% } %>
+          <% if(msj1 != "" && msj1 != undefined){ %>
+          <div class="alert alert-<%= msjTipo1 %>"><%= msj1 %></div>
+          <% } %>
 
-        <form name="f1" action="/regEntidad" method="post">
-          <div class="form-group">
+          <form name="f1" action="/regEntidad" method="post">
+            <div class="form-group">
 
-            <div class="row">
-              <div class="col-xs-2">
-                <label for="inputdefault">Tipo de Entidad:</label>
-                
-                <select class="form-control" name="lstTipoEntidad" id="lstTipoEntidad">
-                  <option value="0">Seleccione</option>
-                  <% 
-                  registrosAllTipoEntidades.forEach(function(registro){ %>
-                  <option value="<%= registro.id_tipo_ent %>"<% if(vTipoEntidad == registro.id_tipo_ent){ %> selected<% } %>><%= registro.nombre_tipo_ent %></option>
-                  <% }) %>
-                </select>
-              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="inputdefault">Tipo de Entidad:</label>
+                  
+                  <select class="form-control" name="lstTipoEntidad" id="lstTipoEntidad">
+                    <option value="0">Seleccione</option>
+                    <% 
+                    registrosAllTipoEntidades.forEach(function(registro){ %>
+                    <option value="<%= registro.id_tipo_ent %>"<% if(vTipoEntidad == registro.id_tipo_ent){ %> selected<% } %>><%= registro.nombre_tipo_ent %></option>
+                    <% }) %>
+                  </select>
+                </div>
 
-              <div class="col-xs-4">
-                <label for="inputdefault">Nombre de la Persona o Empresa</label>
-                <input class="form-control" type="text" id="txtEntidadNombre" name="txtEntidadNombre">
+                <div class="col-md-4">
+                  <label for="inputdefault">Nombre de la Persona o Empresa</label>
+                  <input class="form-control" type="text" id="txtEntidadNombre" name="txtEntidadNombre">
+                </div>
               </div>
             </div>
-          </div>
 
-          <input type="submit" class="btn btn-primary" value="Grabar">
-        </form>
-
-      </div>
+            <input type="submit" class="btn btn-primary" value="Grabar">
+          </form>
+      </div> <!-- class="panel-body" -->
 
     </div>
     <!--fin panel 1-->
@@ -61,6 +63,7 @@
       </div>
 
       <div class="panel-body">
+          <div class="alert alert-danger" id="erroresJavaScript" style="display: none;"></div>
           <% if(msj2 != "" && msj2 != undefined){ %>
           <div class="alert alert-<%= msjTipo2 %>"><%= msj2 %></div>
           <% } %>
@@ -68,7 +71,9 @@
           <table class="table table-striped">
               <tr>
                   <th>Tipo de Entidad</th>
-                  <th>Nombre</th>
+                  <th style="width: 55px;"></th>
+                  <th><div class="col-xs-6">Nombre</div></th>
+                  <th>Editar</th>
                   <th>Eliminar</th>
               </tr>
 
@@ -76,8 +81,29 @@
 
               <tr>
                 <td><%= registro.nombre_tipo_ent %></td>
-                <td><%= registro.nombre_ent %></td>
-                <td><a href="/borrar-entidad-de-tabla-maestra/<%= registro.id_ent %>/<%= registro.id_tipo_ent %>"><span class="glyphicon glyphicon-trash"></a></td>
+                <td>
+                    <a href="/generado por javascript" id="hrefEditOk<%= registro.id_ent %>" style="display: none;" onclick="generaLink(this);">
+                      <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                </td>
+                <td>
+                  <div class="col-xs-6" id="divLabelNombreEntidad<%= registro.id_ent %>">
+                    <%= registro.nombre_ent %>
+                  </div>
+                  <div class="col-xs-6" id="divInputNombreEntidad<%= registro.id_ent %>" style="display: none;">
+                    <input type="text" class="form-control input-xs" style="height: 26px; font-size: 12px;" id="txtNombreEntidad<%= registro.id_ent %>" name="txtNombreEntidad<%= registro.id_ent %>">
+                  </div>
+                </td>
+                <td>
+                  <a href="/edita-entidad-de-tabla-maestra/<%= registro.id_ent %>" id="hrefEdit<%= registro.id_ent %>" onclick="pulsaEdit(this); return false;">
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </a>
+                </td>
+                <td>
+                  <a href="/borrar-entidad-de-tabla-maestra/<%= registro.id_ent %>/<%= registro.id_tipo_ent %>">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </a>
+                </td>
               </tr>
 
               <% }) %>
@@ -88,6 +114,6 @@
     <!--fin panel 2-->
 
 
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

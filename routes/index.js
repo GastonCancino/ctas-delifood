@@ -87,6 +87,8 @@ router.get('/registrar-entidad', controladorEntidad.mostrarTipoEntidades2, contr
 router.post('/regEntidad', controladorEntidad.grabarEntidad, controladorEntidad.mostrarTipoEntidades2, controladorEntidad.mostrarEntidades);
 
 router.get('/borrar-entidad-de-tabla-maestra/:id_ent/:id_tipo_ent', controladorEntidad.borrarEntidad, controladorEntidad.mostrarTipoEntidades2, controladorEntidad.mostrarEntidades);
+
+router.get('/edita-entidad-de-tabla-maestra/:id_ent/:nombre_ent', controladorEntidad.editaEntidad, controladorEntidad.mostrarTipoEntidades2, controladorEntidad.mostrarEntidades);
 // FIN - Página Menú "Registros" - "Entidad"
 
 
@@ -97,7 +99,7 @@ router.get('/borrar-entidad-de-tabla-maestra/:id_ent/:id_tipo_ent', controladorE
 
 router.get('/registrar-carta-por-fecha', controladorCartaxFecha.mostrarCartaDeHoy, controladorAlmuerzoProg.mostrarTodosAlmuerzoProg);
 
-router.post('/agregar-almuerzo-a-carta', controladorCartaxFecha.agregarAlmuerzoAcarta);
+router.post('/agregar-almuerzo-a-carta', controladorCartaxFecha.agregarAlmuerzoAcarta, controladorCartaxFecha.mostrarCartaDeHoy, controladorAlmuerzoProg.mostrarTodosAlmuerzoProg);
 
 // definimos 2 PLACE HOLDERS "id_carta_x_fecha" y "id_alm_prog" separados con / esto le indica a express que seguido habrá un placeholder
 router.get('/borrar-almuerzo-de-carta/:id_carta_x_fecha/:id_alm_prog', controladorCartaxFecha.borrarAlmuerzoDecarta);
@@ -121,6 +123,15 @@ router.get('/consulta-carta-por-fecha', controladorCartaxFecha.mostrarCartaPorFe
 router.post('/consulta-carta-por-fecha', controladorCartaxFecha.mostrarCartaPorFecha);
 
 // FIN - Página Menú "Consultas" - "Carta por fecha"
+
+
+// INICIO - Página Menú "Consultas" - "Pedidos"
+
+router.get('/consulta-pedidos-por-fecha', controladorPedidoAdmin.consultaPedidosPorFecha);
+
+router.post('/consulta-pedidos-por-fecha', controladorPedidoAdmin.consultaPedidosPorFecha);
+
+// FIN - Página Menú "Consultas" - "Pedidos"
 
 
 
